@@ -6,6 +6,7 @@ import (
     "io/ioutil"
     "net/http"
     "regexp"
+    "strings"
 )
 
 const (
@@ -31,6 +32,10 @@ func RequestJson(url string) (interface{}, error) {
         return nil, err
     }
     return result, nil
+}
+
+func TrimString(str string) (string) {
+    return strings.TrimSpace(str)
 }
 
 // validates affiliate_id

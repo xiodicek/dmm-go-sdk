@@ -110,32 +110,32 @@ func (srv *ActressService) SetOffset(offset int64) *ActressService {
 }
 
 func (srv *ActressService) SetKeyword(keyword string) *ActressService {
-    srv.Keyword = keyword
+    srv.Keyword = TrimString(keyword)
     return srv
 }
 
 func (srv *ActressService) SetBirthday(birthday string) *ActressService {
-    srv.Birthday = birthday
+    srv.Birthday = TrimString(birthday)
     return srv
 }
 
 func (srv *ActressService) SetBust(bust string) *ActressService {
-    srv.Bust = bust
+    srv.Bust = TrimString(bust)
     return srv
 }
 
 func (srv *ActressService) SetWaist(waist string) *ActressService {
-    srv.Waist = waist
+    srv.Waist = TrimString(waist)
     return srv
 }
 
 func (srv *ActressService) SetHip(hip string) *ActressService {
-    srv.Hip = hip
+    srv.Hip = TrimString(hip)
     return srv
 }
 
 func (srv *ActressService) SetHeight(height string) *ActressService {
-    srv.Height = height
+    srv.Height = TrimString(height)
     return srv
 }
 
