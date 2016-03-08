@@ -11,7 +11,6 @@ const (
     DEFAULT_PRODUCT_API_LENGTH = 20
     DEFAULT_PRODUCT_MAX_LENGTH = 100
     
-    DEFAULT_PRODUCT_API_OFFSET = 1
     DEFAULT_PRODUCT_MAX_OFFSET = 50000
 )
 
@@ -39,32 +38,32 @@ type ProductResponse struct {
     Items         []Item `mapstructure:"items"`
 }
 
-type Item struct {              
-    AffiliateUrl       string `mapstructure:"affiliateURL"`
-    AffiliateUrlMobile string `mapstructure:"affiliateURLsp"`
-    CategoryName       string `mapstructure:"category_name"`
-    Comment            string `mapstructure:"comment"`
-    ContentId          string `mapstructure:"content_id"`
-    Date               string `mapstructure:"date"`
-    FloorName          string `mapstructure:"floor_name"`
-    ISBN               string `mapstructure:"isbn"`
-    JANCode            string `mapstructure:"jancode"`
-    ProductCode        string `mapstructure:"maker_product"`
-    ProductId          string `mapstructure:"product_id"`
-    ServiceName        string `mapstructure:"service_name"`
-    Stock              string `mapstructure:"stock"`
-    Title              string `mapstructure:"title"`
-    Url                string `mapstructure:"URL"`
-    UrlMoble           string `mapstructure:"URLsp"`
-    Volume             string `mapstructure:"volume"`
-    ImageUrl           ImageUrlList `mapstructure:"imageURL"`
+type Item struct {
+    AffiliateUrl       string             `mapstructure:"affiliateURL"`
+    AffiliateUrlMobile string             `mapstructure:"affiliateURLsp"`
+    CategoryName       string             `mapstructure:"category_name"`
+    Comment            string             `mapstructure:"comment"`
+    ContentId          string             `mapstructure:"content_id"`
+    Date               string             `mapstructure:"date"`
+    FloorName          string             `mapstructure:"floor_name"`
+    ISBN               string             `mapstructure:"isbn"`
+    JANCode            string             `mapstructure:"jancode"`
+    ProductCode        string             `mapstructure:"maker_product"`
+    ProductId          string             `mapstructure:"product_id"`
+    ServiceName        string             `mapstructure:"service_name"`
+    Stock              string             `mapstructure:"stock"`
+    Title              string             `mapstructure:"title"`
+    Url                string             `mapstructure:"URL"`
+    UrlMoble           string             `mapstructure:"URLsp"`
+    Volume             string             `mapstructure:"volume"`
+    ImageUrl           ImageUrlList       `mapstructure:"imageURL"`
     SampleImageUrl     SampleImageUrlList `mapstructure:"sampleImageURL"`
     SampleMovieUrl     SampleMovieUrlList `mapstructure:"sampleMovieURL"`
-    Review             ReviewInformation `mapstructure:"review"`
-    PriceInformation   PriceInformation `mapstructure:"prices"`
-    ItemInformation    ItemInformation `mapstructure:"iteminfo"`
-    BandaiInformation  BandaiInformation `mapstructure:"bandaiinfo"`
-    CdInformation      CdInformation `mapstructure:"cdinfo"`
+    Review             ReviewInformation  `mapstructure:"review"`
+    PriceInformation   PriceInformation   `mapstructure:"prices"`
+    ItemInformation    ItemInformation    `mapstructure:"iteminfo"`
+    BandaiInformation  BandaiInformation  `mapstructure:"bandaiinfo"`
+    CdInformation      CdInformation      `mapstructure:"cdinfo"`
 }
 
 type ImageUrlList struct {
@@ -91,9 +90,9 @@ type SampleMovieUrlList struct {
 }
 
 type PriceInformation struct {
-    Price       string `mapstructure:"price"`
-    PriceAll    string `mapstructure:"price_all"`
-    RetailPrice string `mapstructure:"list_price"`
+    Price       string             `mapstructure:"price"`
+    PriceAll    string             `mapstructure:"price_all"`
+    RetailPrice string             `mapstructure:"list_price"`
     Distributions DistributionList `mapstructure:"deliveries"`
 }
 
@@ -135,7 +134,7 @@ type CdInformation struct {
 }
 
 type ReviewInformation struct {
-    Count   int64 `mapstructure:"count"`
+    Count   int64   `mapstructure:"count"`
     Average float64 `mapstructure:"average"`
 }
 
@@ -147,7 +146,7 @@ func NewProductService(affiliateId, apiId string) *ProductService {
         Service:     "",
         Floor:       "",
         Length:      DEFAULT_PRODUCT_API_LENGTH,
-        Offset:      DEFAULT_PRODUCT_API_OFFSET,
+        Offset:      DEFAULT_API_OFFSET,
         Sort:        "",
         Keyword:     "",
     }
@@ -189,6 +188,11 @@ func (srv *ProductService) SetOffset(offset int64) *ProductService {
     return srv
 }
 
+func (srv *ProductService) SetKeyword(keyword string) *ProductService {
+    srv.Keyword = keyword
+    return srv
+}
+
 func (srv *ProductService) SetSite(site string) *ProductService {
     srv.Site = site
     return srv
@@ -219,16 +223,12 @@ func (srv *ProductService) BuildRequestUrl() (string, error) {
     queries.Set("affiliate_id", srv.AffiliateId)
     queries.Set("site", srv.Site)
 
-    if (srv.Length == 0) {
-        srv.Length = DEFAULT_PRODUCT_API_LENGTH
-    } else if !srv.ValidateLength() {
+    if !srv.ValidateLength() {
         return "", fmt.Errorf("length out of range: %d", srv.Length)
     }
     queries.Set("hits", strconv.FormatInt(srv.Length, 10))
 
-    if (srv.Offset == 0) {
-        srv.Offset = DEFAULT_PRODUCT_API_OFFSET
-    } else if !srv.ValidateLength() {
+    if !srv.ValidateOffset() {
         return "", fmt.Errorf("offset out of range: %d", srv.Offset)
     }
     queries.Set("offset", strconv.FormatInt(srv.Offset, 10))
