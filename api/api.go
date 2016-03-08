@@ -9,10 +9,13 @@ import (
 )
 
 const (
-    API_BASE_URL = "https://api.dmm.com/affiliate/v3"
-    API_VERSION  = "3"
-    SITE_ALLAGES = "DMM.com"
-    SITE_ADULT   = "DMM.R18"
+    API_BASE_URL       = "https://api.dmm.com/affiliate/v3"
+    API_VERSION        = "3"
+    SITE_ALLAGES       = "DMM.com"
+    SITE_ADULT         = "DMM.R18"
+    DEFAULT_API_OFFSET = 1
+    DEFAULT_API_LENGTH = 100
+    DEFAULT_MAX_LENGTH = 500
 )
 
 func RequestJson(url string) (interface{}, error) {
