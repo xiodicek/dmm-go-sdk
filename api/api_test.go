@@ -6,11 +6,10 @@ import (
     // "github.com/davecgh/go-spew/spew"
 )
 
-// func TestFoo(t *testing.T) {
-//     testUrl := "https://api.dmm.com/affiliate/v3/itemList?affiliate_id=10278-999&api_id=UrwskPfkqQ0DuVry2gYL&site=DMM.R18"
-//     actual, _ := RequestJson(testUrl)
-//     spew.Dump(actual)
-// }
+const (
+    Dummy_Affliate_Id = "foobar-999"
+    Dummy_Api_Id      = "TXpEZ5D4T2xB3J5cuSLf"
+)
 
 func TestRequestJson(t *testing.T) {
     testUrl := "https://httpbin.org/get?foo=bar"
