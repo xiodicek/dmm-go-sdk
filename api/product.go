@@ -223,15 +223,19 @@ func (srv *ProductService) BuildRequestUrl() (string, error) {
     queries.Set("affiliate_id", srv.AffiliateId)
     queries.Set("site", srv.Site)
 
-    if !srv.ValidateLength() {
-        return "", fmt.Errorf("length out of range: %d", srv.Length)
+    if srv.Length != 0 {
+        if !srv.ValidateLength() {
+            return "", fmt.Errorf("length out of range: %d", srv.Length)
+        }
+        queries.Set("hits", strconv.FormatInt(srv.Length, 10))
     }
-    queries.Set("hits", strconv.FormatInt(srv.Length, 10))
 
-    if !srv.ValidateOffset() {
-        return "", fmt.Errorf("offset out of range: %d", srv.Offset)
+    if srv.Offset != 0 {
+        if !srv.ValidateOffset() {
+            return "", fmt.Errorf("offset out of range: %d", srv.Offset)
+        }
+        queries.Set("offset", strconv.FormatInt(srv.Offset, 10))
     }
-    queries.Set("offset", strconv.FormatInt(srv.Offset, 10))
 
     if (srv.Service != "") {
         queries.Set("service", srv.Service)

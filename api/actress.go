@@ -114,6 +114,16 @@ func (srv *ActressService) SetKeyword(keyword string) *ActressService {
     return srv
 }
 
+func (srv *ActressService) SetSort(sort string) *ActressService {
+    srv.Sort = TrimString(sort)
+    return srv
+}
+
+func (srv *ActressService) SetInitial(initial string) *ActressService {
+    srv.Initial = TrimString(initial)
+    return srv
+}
+
 func (srv *ActressService) SetBirthday(birthday string) *ActressService {
     srv.Birthday = TrimString(birthday)
     return srv
@@ -144,7 +154,7 @@ func (srv *ActressService) ValidateLength() bool {
 }
 
 func (srv *ActressService) ValidateOffset() bool {
-    return srv.Offset > 1
+    return srv.Offset >= 1
 }
 
 func (srv *ActressService) BuildRequestUrl() (string, error) {
@@ -160,15 +170,19 @@ func (srv *ActressService) BuildRequestUrl() (string, error) {
     queries.Set("api_id", srv.ApiId)
     queries.Set("affiliate_id", srv.AffiliateId)
 
-    if !srv.ValidateLength() {
-        return "", fmt.Errorf("length out of range: %d", srv.Length)
+    if srv.Length != 0 {
+        if !srv.ValidateLength() {
+            return "", fmt.Errorf("length out of range: %d", srv.Length)
+        }
+        queries.Set("hits", strconv.FormatInt(srv.Length, 10))
     }
-    queries.Set("hits", strconv.FormatInt(srv.Length, 10))
 
-    if !srv.ValidateOffset() {
-        return "", fmt.Errorf("offset out of range: %d", srv.Offset)
+    if srv.Offset != 0 {
+        if !srv.ValidateOffset() {
+            return "", fmt.Errorf("offset out of range: %d", srv.Offset)
+        }
+        queries.Set("offset", strconv.FormatInt(srv.Offset, 10))
     }
-    queries.Set("offset", strconv.FormatInt(srv.Offset, 10))
 
     if (srv.Initial != "") {
         queries.Set("initial", srv.Initial)
