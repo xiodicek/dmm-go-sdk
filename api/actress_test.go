@@ -6,11 +6,6 @@ import (
     "strconv"
 )
 
-const (
-    Dummy_Affliate_Id = "foobar-999"
-    Dummy_Api_Id      = "TXpEZ5D4T2xB3J5cuSLf"
-)
-
 func TestNewActressService(t *testing.T) {
     affiliate_id := Dummy_Affliate_Id
     api_id       := Dummy_Api_Id
@@ -26,7 +21,7 @@ func TestNewActressService(t *testing.T) {
 }
 
 func TestSetLengthInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
     var length int64 = 10
     srv.SetLength(length)
 
@@ -36,7 +31,7 @@ func TestSetLengthInActressService(t *testing.T) {
 }
 
 func TestSetHitsInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
     var hits int64 = 10
     srv.SetHits(hits)
 
@@ -46,7 +41,7 @@ func TestSetHitsInActressService(t *testing.T) {
 }
 
 func TestSetOffsetInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
     var offset int64 = 10
     srv.SetOffset(offset)
 
@@ -56,7 +51,7 @@ func TestSetOffsetInActressService(t *testing.T) {
 }
 
 func TestSetKeywordInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
 
     keyword1 := "abcdefghijkelmnopqrstuvwxyzABCDEFGHIJKELMNOPQRSTUVWXYZ0123456789"
     srv.SetKeyword(keyword1)
@@ -92,7 +87,7 @@ func TestSetKeywordInActressService(t *testing.T) {
 }
 
 func TestSetBirthdayInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
 
     date1 := "19840723"
     srv.SetBirthday(date1)
@@ -114,7 +109,7 @@ func TestSetBirthdayInActressService(t *testing.T) {
 }
 
 func TestSetBustInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
 
     bust1 := "D"
     srv.SetBust(bust1)
@@ -130,7 +125,7 @@ func TestSetBustInActressService(t *testing.T) {
 }
 
 func TestSetWaistInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
 
     waist1 := "60"
     srv.SetWaist(waist1)
@@ -152,7 +147,7 @@ func TestSetWaistInActressService(t *testing.T) {
 }
 
 func TestSetHipInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
 
     hip1 := "88"
     srv.SetHip(hip1)
@@ -174,7 +169,7 @@ func TestSetHipInActressService(t *testing.T) {
 }
 
 func TestSetHeightInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
 
     height1 := "155"
     srv.SetHeight(height1)
@@ -196,7 +191,7 @@ func TestSetHeightInActressService(t *testing.T) {
 }
 
 func TestValidateLengthInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
 
     var target int64
 
@@ -238,7 +233,7 @@ func TestValidateLengthInActressService(t *testing.T) {
 }
 
 func TestValidateOffsetInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
 
     var target int64
 
@@ -273,7 +268,7 @@ func TestBuildRequestUrlInActressService(t *testing.T) {
     var err error
     var expected string
 
-    srv = dummyService()
+    srv = dummyActressService()
     u, err = srv.BuildRequestUrl()
     expected = API_BASE_URL + "/ActressSearch?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id + "&hits=" + strconv.FormatInt(DEFAULT_ACTRESS_API_LENGTH, 10) + "&offset=" + strconv.FormatInt(DEFAULT_API_OFFSET, 10)
     if u != expected {
@@ -283,7 +278,7 @@ func TestBuildRequestUrlInActressService(t *testing.T) {
         t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
     }
 
-    srv = dummyService()
+    srv = dummyActressService()
     srv.SetLength(0)
     srv.SetOffset(0)
     u, err = srv.BuildRequestUrl()
@@ -405,7 +400,7 @@ func TestBuildRequestUrlInActressService(t *testing.T) {
 }
 
 func TestBuildRequestUrlWithoutApiIdInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
     srv.ApiId = ""
     u, err := srv.BuildRequestUrl()
     if u != "" {
@@ -417,7 +412,7 @@ func TestBuildRequestUrlWithoutApiIdInActressService(t *testing.T) {
 }
 
 func TestBuildRequestUrlWithWrongAffiliateIdInActressService(t *testing.T) {
-    srv := dummyService()
+    srv := dummyActressService()
     srv.AffiliateId = "fizzbizz-100"
     u, err := srv.BuildRequestUrl()
     if u != "" {
@@ -428,6 +423,6 @@ func TestBuildRequestUrlWithWrongAffiliateIdInActressService(t *testing.T) {
     }
 }
 
-func dummyService() *ActressService {
+func dummyActressService() *ActressService {
     return NewActressService(Dummy_Affliate_Id, Dummy_Api_Id)
 }
