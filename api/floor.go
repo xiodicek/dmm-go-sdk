@@ -78,5 +78,5 @@ func (srv *FloorService) BuildRequestUrl() (string, error) {
     queries.Set("api_id", srv.ApiId)
     queries.Set("affiliate_id", srv.AffiliateId)
 
-    return API_BASE_URL + "FloorList?" + queries.Encode(), nil
+    return API_BASE_URL + "/FloorList?" + queries.Encode(), nil
 }

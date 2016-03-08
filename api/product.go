@@ -245,5 +245,5 @@ func (srv *ProductService) BuildRequestUrl() (string, error) {
     if (srv.Keyword != "") {
         queries.Set("keyword", srv.Keyword)
     }
-    return API_BASE_URL + "ItemList?" + queries.Encode(), nil
+    return API_BASE_URL + "/ItemList?" + queries.Encode(), nil
 }

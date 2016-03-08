@@ -9,7 +9,7 @@ import (
 )
 
 const (
-    API_BASE_URL = "https://api.dmm.com/affiliate/v3/"
+    API_BASE_URL = "https://api.dmm.com/affiliate/v3"
     API_VERSION  = "3"
     SITE_ALLAGES = "DMM.com"
     SITE_ADULT   = "DMM.R18"
