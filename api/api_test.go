@@ -14,14 +14,25 @@ import (
 
 func TestRequestJson(t *testing.T) {
     testUrl := "https://httpbin.org/get?foo=bar"
-    actual, _ := RequestJson(testUrl)
+    actual, err1 := RequestJson(testUrl)
     
     if actual == nil {
         t.Fatalf("response is not expected empty.")
     }
 
+    if err1 != nil {
+        t.Fatalf("error is expected empty.")
+    }
+
     if reflect.TypeOf(actual).String() != "map[string]interface {}" {
         t.Fatalf("response is expected inteface{}. but actual %s", reflect.TypeOf(actual).String())
+    }
+
+    errUrl := "https://httpbin.org/status/500"
+    _, err2 := RequestJson(errUrl)
+
+    if err2 == nil {
+        t.Fatalf("error is not expected empty.")
     }
 }
 
@@ -74,6 +85,40 @@ func TestValidateSite(t *testing.T) {
 
     if ValidateSite("") {
         t.Fatalf("When value is empty, not expected true.")
+    }
+}
+
+func TestTrimString(t *testing.T) {
+    expected1 := "abcdefghijkelmnopqrstuvwxyzABCDEFGHIJKELMNOPQRSTUVWXYZ0123456789"
+    actual1   := TrimString(expected1)
+    if expected1 != actual1 {
+        t.Fatalf("trimed string is expected to equal expected1")
+    }
+
+    expected2 := ""
+    actual2 := TrimString(expected2)
+    if expected2 != actual2 {
+        t.Fatalf("trimed string is expected to equal expected2")
+    }
+
+    expected3 := "つれづれなるまゝに、日暮らし、硯にむかひて、心にうつりゆくよしなし事を、そこはかとなく書きつくれば、あやしうこそものぐるほしけれ。"
+    actual3 := TrimString(expected3)
+    if expected3 != actual3 {
+        t.Fatalf("trimed string is expected to equal expected3")
+    }
+
+    target4 := " a b c d 0 "
+    expected4 := "a b c d 0"
+    actual4 := TrimString(target4)
+    if expected4 != actual4 {
+        t.Fatalf("trimed string is expected to equal expected4")
+    }
+
+    target5 := "　あ ア　化Ａ "
+    expected5 := "あ ア　化Ａ"
+    actual5 := TrimString(target5)
+    if expected5 != actual5 {
+        t.Fatalf("trimed string is expected to equal expected5")
     }
 }
 
