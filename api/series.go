@@ -16,17 +16,6 @@ type SeriesService struct {
     Offset       int64  `mapstructure:"offset"`
 }
 
-func NewSeriesService(affiliateId, apiId string) *SeriesService {
-    return &SeriesService{
-        ApiId:       apiId,
-        AffiliateId: affiliateId,
-        FloorId:     "",
-        Initial:     "",
-        Length:      DEFAULT_API_LENGTH,
-        Offset:      DEFAULT_API_OFFSET,
-    }
-}
-
 type SeriesRawResponse struct {
     Request SeriesService  `mapstructure:"request"`
     Result  SeriesResponse `mapstructure:"result"`
@@ -51,6 +40,17 @@ type Series struct {
     Name     string `mapstructure:"name"`
     Ruby     string `mapstructure:"ruby"`
     ListURL  string `mapstructure:"list_url"`
+}
+
+func NewSeriesService(affiliateId, apiId string) *SeriesService {
+    return &SeriesService{
+        ApiId:       apiId,
+        AffiliateId: affiliateId,
+        FloorId:     "",
+        Initial:     "",
+        Length:      DEFAULT_API_LENGTH,
+        Offset:      DEFAULT_API_OFFSET,
+    }
 }
 
 func (srv *SeriesService) Execute() (*SeriesResponse, error) {
