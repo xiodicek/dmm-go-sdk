@@ -189,12 +189,27 @@ func (srv *ProductService) SetOffset(offset int64) *ProductService {
 }
 
 func (srv *ProductService) SetKeyword(keyword string) *ProductService {
-    srv.Keyword = keyword
+    srv.Keyword = TrimString(keyword)
+    return srv
+}
+
+func (srv *ProductService) SetSort(sort string) *ProductService {
+    srv.Sort = TrimString(sort)
     return srv
 }
 
 func (srv *ProductService) SetSite(site string) *ProductService {
-    srv.Site = site
+    srv.Site = TrimString(site)
+    return srv
+}
+
+func (srv *ProductService) SetService(service string) *ProductService {
+    srv.Service = TrimString(service)
+    return srv
+}
+
+func (srv *ProductService) SetFloor(floor string) *ProductService {
+    srv.Floor = TrimString(floor)
     return srv
 }
 
