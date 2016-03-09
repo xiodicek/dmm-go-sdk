@@ -33,6 +33,13 @@ type ActressRawResponse struct {
 }
 
 type ActressResponse struct {
+    ResultCount   int64     `mapstructure:"result_count"`
+    TotalCount    int64     `mapstructure:"total_count"`
+    FirstPosition int64     `mapstructure:"first_position"`
+    Actresses     []Actress `mapstructure:"actress"`
+}
+
+type Actress struct {
     Id          string             `mapstructure:"id"`
     Name        string             `mapstructure:"name"`
     Ruby        string             `mapstructure:"ruby"`
