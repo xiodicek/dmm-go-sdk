@@ -53,3 +53,7 @@ if err != nil {
     fmt.Println(rst)
 }
 ```
+
+# Details
+
+see [Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk) (English and Japanese) or [our documentation](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/docs/README.md) (Japanese ONLY)

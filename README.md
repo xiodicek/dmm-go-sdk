@@ -13,7 +13,7 @@ $ go get github.com/DMMcomLabo/dmm-go-sdk
 
 ## 使い方
 
-使い方や使用例はこちらを参考にしてください。 [Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk).
+使い方や使用例はこちらを参照してください。 [Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk).
 
 ## 使用例 (商品検索APIの場合)
 
@@ -53,3 +53,7 @@ if err != nil {
     fmt.Println(rst)
 }
 ```
+
+# 詳細
+
+[Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk) もしくは [our documentation](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/docs/README.md) を参照してください
