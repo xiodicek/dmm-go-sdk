@@ -46,11 +46,13 @@ type Item struct {
     ContentId          string             `mapstructure:"content_id"`
     Date               string             `mapstructure:"date"`
     FloorName          string             `mapstructure:"floor_name"`
+    FloorCode          string             `mapstructure:"floor_code"`
     ISBN               string             `mapstructure:"isbn"`
     JANCode            string             `mapstructure:"jancode"`
     ProductCode        string             `mapstructure:"maker_product"`
     ProductId          string             `mapstructure:"product_id"`
     ServiceName        string             `mapstructure:"service_name"`
+    ServiceCode        string             `mapstructure:"service_code"`
     Stock              string             `mapstructure:"stock"`
     Title              string             `mapstructure:"title"`
     Url                string             `mapstructure:"URL"`
