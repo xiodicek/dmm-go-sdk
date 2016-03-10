@@ -56,4 +56,4 @@ if err != nil {
 
 # Details
 
-see [Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk) (English and Japanese) or [our documentation](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/docs/README.md) (Japanese ONLY)
+see [Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk/api) (English and Japanese) or [our documentation](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/docs/README.md) (Japanese ONLY)

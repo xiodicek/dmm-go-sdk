@@ -56,4 +56,4 @@ if err != nil {
 
 # 詳細
 
-[Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk) もしくは [our documentation](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/docs/README.md) を参照してください
+[Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk/api) もしくは [our documentation](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/docs/README.md) を参照してください
