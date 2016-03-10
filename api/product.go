@@ -251,15 +251,20 @@ func (srv *ProductService) SetFloor(floor string) *ProductService {
     return srv
 }
 
-// ValidateLength validates ProductService.Length within the range (1 <= value <= 100).
+// ValidateLength validates ProductService.Length within the range (1 <= value <= DEFAULT_PRODUCT_MAX_LENGTH).
 // Refer to ValidateRange for more information about the range to validate.
 //
-// ValidateLengthはProductService.Lengthが範囲内(1 <= value <= 100)にあるか検証します。
+// ValidateLengthはProductService.Lengthが範囲内(1 <= value <= DEFAULT_PRODUCT_MAX_LENGTH)にあるか検証します。
 // 検証範囲について更に詳しく知りたい方はValidateRangeを参照してください。
 func (srv *ProductService) ValidateLength() bool {
     return ValidateRange(srv.Length, 1, DEFAULT_PRODUCT_MAX_LENGTH)
 }
 
+// ValidateOffset validates ProductService.Offset within the range (1 <= value <= DEFAULT_PRODUCT_MAX_OFFSET).
+// Refer to ValidateRange for more information about the range to validate.
+//
+// ValidateOffsetはProductService.Offsetが範囲内(1 <= value <= DEFAULT_PRODUCT_MAX_OFFSET)にあるか検証します。
+// 検証範囲について更に詳しく知りたい方はValidateRangeを参照してください。
 func (srv *ProductService) ValidateOffset() bool {
     return ValidateRange(srv.Offset, 1, DEFAULT_PRODUCT_MAX_OFFSET)
 }

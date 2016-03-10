@@ -38,6 +38,9 @@ type DMMFloor struct {
     Code   string `mapstructure:"code"`
 }
 
+// NewFloorService returns a new service for the given affiliate ID and API ID.
+//
+// NewFloorServiceは渡したアフィリエイトIDとAPI IDを使用して新しい serviceを返します。
 func NewFloorService(affiliateId, apiId string) *FloorService {
     return &FloorService{
         ApiId:       apiId,
@@ -45,6 +48,11 @@ func NewFloorService(affiliateId, apiId string) *FloorService {
     }
 }
 
+// Execute requests a url is created by BuildRequestUrl.
+// Use ExecuteWeak If you want get this response in interface{}.
+//
+// BuildRequestUrlで生成したURLにリクエストします。
+// もし interface{} でこのレスポンスを取得したい場合は ExecuteWeak を使用してください。
 func (srv *FloorService) Execute() (*FloorResponse, error) {
     result, err := srv.ExecuteWeak()
     if err != nil {
@@ -57,6 +65,9 @@ func (srv *FloorService) Execute() (*FloorResponse, error) {
     return &raw.Result, nil
 }
 
+// ExecuteWeak requests a url is created by BuildRequestUrl.
+//
+// BuildRequestUrlで生成したURLにリクエストします。
 func (srv *FloorService) ExecuteWeak() (interface{}, error) {
     reqUrl, err := srv.BuildRequestUrl()
     if err != nil {
@@ -66,6 +77,9 @@ func (srv *FloorService) ExecuteWeak() (interface{}, error) {
     return RequestJson(reqUrl)
 }
 
+// BuildRequestUrl creates url to request floor API.
+//
+// BuildRequestUrlはフロアAPIにリクエストするためのURLを作成します。
 func (srv *FloorService) BuildRequestUrl() (string, error) {
     if srv.ApiId == "" {
         return "", fmt.Errorf("set invalid ApiId parameter.")

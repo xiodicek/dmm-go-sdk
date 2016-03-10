@@ -19,6 +19,9 @@ const (
     DEFAULT_MAX_LENGTH = 500
 )
 
+// RequestJson requests a retirived url and returns the response is parsed JSON-encoded data
+//
+// RequestJsonは指定されたURLにリクエストしJSONで返ってきたレスポンスをパースしたデータを返します。
 func RequestJson(url string) (interface{}, error) {
     resp, err := http.Get(url)
     if err != nil {
@@ -34,13 +37,19 @@ func RequestJson(url string) (interface{}, error) {
     return result, nil
 }
 
+// TrimString wraps up strings.TrimString
+//
+// TrimStringはstrings.TrimStringのラップ関数です。
 func TrimString(str string) (string) {
     return strings.TrimSpace(str)
 }
 
-// validates affiliate_id
-// example value: dummy-999
-// affiliate number range: 990 ~ 999
+// ValidateAffiliateId validates affiliate ID.
+// (affiliate number range: 990 ~ 999)
+//  e.g. dummy-999
+//
+// ValidateAffiliateIdはアフィリエイトID(例: dummy-999)のバリデーションを行います。
+//（アフィリエイトの数値の範囲は 990〜999です）
 func ValidateAffiliateId(affiliate_id string) bool {
     if affiliate_id == "" {
         return false
@@ -48,7 +57,9 @@ func ValidateAffiliateId(affiliate_id string) bool {
     return regexp.MustCompile(`^.+-99[0-9]$`).Match([]byte(affiliate_id))
 }
 
-// validates site parameter
+// ValidateSite validates site parameter.
+//
+// ValidateSiteはsiteパラメータのバリデーションを行います
 func ValidateSite(site string) bool {
     if site == "" {
         return false
@@ -59,10 +70,16 @@ func ValidateSite(site string) bool {
     return true
 }
 
+// ValidateRange validates a retrieved number within the range ( number >= min && number <= max).
+//
+// ValidateRangeは指定された数値が最小値と最大値の範囲内にあるかどうか判定します。
 func ValidateRange(target, min, max int64) bool {
     return target >= min && target <= max
 }
 
+// GetApiVersion returns API version.
+//
+// GetApiVersionはAPIのバージョンを返します。
 func GetApiVersion() string {
     return API_VERSION
 }
