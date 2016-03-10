@@ -173,7 +173,8 @@ func (srv *ProductService) Execute() (*ProductResponse, error) {
     return &raw.Result, nil
 }
 
-ExecuteWeak requests a url is created by BuildRequestUrl.
+// ExecuteWeak requests a url is created by BuildRequestUrl.
+// BuildRequestUrlで生成したURLにリクエストします
 func (srv *ProductService) ExecuteWeak() (interface{}, error) {
     reqUrl, err := srv.BuildRequestUrl()
     if err != nil {
