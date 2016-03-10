@@ -30,7 +30,7 @@ package (
   "github.com/DMMcomLabo/dmm-go-sdk/api"
 )
 
-rst, err := NewProductService("foobarbazbuzz", "dummy-999").SetSite(SITE\_ADULT).SetLength(1).Execute()
+rst, err := NewProductService("foobarbazbuzz", "dummy-999").SetSite(SITE_ADULT).SetLength(1).Execute()
 if err != nil {
   fmt.Println(err)
 } else {
