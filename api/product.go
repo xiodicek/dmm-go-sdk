@@ -140,6 +140,8 @@ type ReviewInformation struct {
     Average float64 `mapstructure:"average"`
 }
 
+// NewProductService returns a new service for the given affiliate ID and API ID.
+// NewProductServiceは渡したアフィリエイトIDとAPI IDを使用して新しい serviceを返します。
 func NewProductService(affiliateId, apiId string) *ProductService {
     return &ProductService{
         ApiId:       apiId,
@@ -154,6 +156,11 @@ func NewProductService(affiliateId, apiId string) *ProductService {
     }
 }
 
+// Execute requests a url is created by BuildRequestUrl.
+// Use ExecuteWeak If you want get this response in interface{}.
+//
+// BuildRequestUrlで生成したURLにリクエストします
+// もし interface{} でこのレスポンスを取得したい場合は ExecuteWeak を使用してください
 func (srv *ProductService) Execute() (*ProductResponse, error) {
     result, err := srv.ExecuteWeak()
     if err != nil {
@@ -166,6 +173,7 @@ func (srv *ProductService) Execute() (*ProductResponse, error) {
     return &raw.Result, nil
 }
 
+ExecuteWeak requests a url is created by BuildRequestUrl.
 func (srv *ProductService) ExecuteWeak() (interface{}, error) {
     reqUrl, err := srv.BuildRequestUrl()
     if err != nil {
@@ -175,46 +183,69 @@ func (srv *ProductService) ExecuteWeak() (interface{}, error) {
     return RequestJson(reqUrl)
 }
 
+// SetLength set the specified argument to ProductService.Length
+// SetLengthはLengthパラメータを設定します
 func (srv *ProductService) SetLength(length int64) *ProductService {
     srv.Length = length
     return srv
 }
 
+// SetHits set the specified argument to ProductService.Length
+// SetHits is the alias for SetLength
+//
+// SetHitsはLengthパラメータを設定します
 func (srv *ProductService) SetHits(length int64) *ProductService {
     srv.SetLength(length)
     return srv
 }
 
+// SetOffset set the specified argument to ProductService.Offset
+// SetOffsetはOffsetパラメータを設定します
 func (srv *ProductService) SetOffset(offset int64) *ProductService {
     srv.Offset = offset
     return srv
 }
 
+// SetKeyword set the specified argument to ProductService.Keyword
+// SetKeywordはKeywordパラメータを設定します
 func (srv *ProductService) SetKeyword(keyword string) *ProductService {
     srv.Keyword = TrimString(keyword)
     return srv
 }
 
+// SetSort set the specified argument to ProductService.Sort
+// SetSortはSortパラメータを設定します
 func (srv *ProductService) SetSort(sort string) *ProductService {
     srv.Sort = TrimString(sort)
     return srv
 }
 
+// SetSite set the specified argument to ProductService.Site
+// SetSiteはSiteパラメータを設定します
 func (srv *ProductService) SetSite(site string) *ProductService {
     srv.Site = TrimString(site)
     return srv
 }
 
+// SetService set the specified argument to ProductService.Service
+// SetServiceはServiceパラメータを設定します
 func (srv *ProductService) SetService(service string) *ProductService {
     srv.Service = TrimString(service)
     return srv
 }
 
+// SetFloor set the specified argument to ProductService.Floor
+// SetFloorはFloorパラメータを設定します
 func (srv *ProductService) SetFloor(floor string) *ProductService {
     srv.Floor = TrimString(floor)
     return srv
 }
 
+// ValidateLength validates ProductService.Length within the range (1 <= value <= 100).
+// refer to ValidateRange for more information about the range to validate.
+//
+// ValidateLengthはProductService.Lengthが範囲内(1 <= value <= 100)にあるか検証します。
+// 検証範囲について更に詳しく知りたい方はValidateRangeを参照してください
 func (srv *ProductService) ValidateLength() bool {
     return ValidateRange(srv.Length, 1, DEFAULT_PRODUCT_MAX_LENGTH)
 }
@@ -223,6 +254,8 @@ func (srv *ProductService) ValidateOffset() bool {
     return ValidateRange(srv.Offset, 1, DEFAULT_PRODUCT_MAX_OFFSET)
 }
 
+// BuildRequestUrl creates url to request product API.
+// BuildRequestUrlは商品検索APIにリクエストするためのURLを作成します。
 func (srv *ProductService) BuildRequestUrl() (string, error) {
     if srv.ApiId == "" {
         return "", fmt.Errorf("set invalid ApiId parameter.")
