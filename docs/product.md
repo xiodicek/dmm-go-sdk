@@ -9,7 +9,7 @@ package (
 
 client := dmm.New("foobarbazbuzz", "dummy-990")
 api := client.Product
-api.SetSite(SITE\_ALLAGES)
+api.SetSite(SITE_ALLAGES)
 api.SetService("mono")
 api.SetFloor("dvd")
 api.SetSort("date")
