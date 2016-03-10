@@ -158,10 +158,10 @@ func NewProductService(affiliateId, apiId string) *ProductService {
 }
 
 // Execute requests a url is created by BuildRequestUrl.
-//  Use ExecuteWeak If you want get this response in interface{}.
+// Use ExecuteWeak If you want get this response in interface{}.
 //
-// BuildRequestUrlで生成したURLにリクエストします
-// もし interface{} でこのレスポンスを取得したい場合は ExecuteWeak を使用してください
+// BuildRequestUrlで生成したURLにリクエストします。
+// もし interface{} でこのレスポンスを取得したい場合は ExecuteWeak を使用してください。
 func (srv *ProductService) Execute() (*ProductResponse, error) {
     result, err := srv.ExecuteWeak()
     if err != nil {
@@ -176,7 +176,7 @@ func (srv *ProductService) Execute() (*ProductResponse, error) {
 
 // ExecuteWeak requests a url is created by BuildRequestUrl.
 //
-// BuildRequestUrlで生成したURLにリクエストします
+// BuildRequestUrlで生成したURLにリクエストします。
 func (srv *ProductService) ExecuteWeak() (interface{}, error) {
     reqUrl, err := srv.BuildRequestUrl()
     if err != nil {
@@ -188,7 +188,7 @@ func (srv *ProductService) ExecuteWeak() (interface{}, error) {
 
 // SetLength set the specified argument to ProductService.Length
 //
-// SetLengthはLengthパラメータを設定します
+// SetLengthはLengthパラメータを設定します。
 func (srv *ProductService) SetLength(length int64) *ProductService {
     srv.Length = length
     return srv
@@ -197,7 +197,7 @@ func (srv *ProductService) SetLength(length int64) *ProductService {
 // SetHits set the specified argument to ProductService.Length
 //  SetHits is the alias for SetLength
 //
-// SetHitsはLengthパラメータを設定します
+// SetHitsはLengthパラメータを設定します。
 func (srv *ProductService) SetHits(length int64) *ProductService {
     srv.SetLength(length)
     return srv
@@ -205,7 +205,7 @@ func (srv *ProductService) SetHits(length int64) *ProductService {
 
 // SetOffset set the specified argument to ProductService.Offset
 //
-// SetOffsetはOffsetパラメータを設定します
+// SetOffsetはOffsetパラメータを設定します。
 func (srv *ProductService) SetOffset(offset int64) *ProductService {
     srv.Offset = offset
     return srv
@@ -213,7 +213,7 @@ func (srv *ProductService) SetOffset(offset int64) *ProductService {
 
 // SetKeyword set the specified argument to ProductService.Keyword
 //
-// SetKeywordはKeywordパラメータを設定します
+// SetKeywordはKeywordパラメータを設定します。
 func (srv *ProductService) SetKeyword(keyword string) *ProductService {
     srv.Keyword = TrimString(keyword)
     return srv
@@ -221,7 +221,7 @@ func (srv *ProductService) SetKeyword(keyword string) *ProductService {
 
 // SetSort set the specified argument to ProductService.Sort
 //
-// SetSortはSortパラメータを設定します
+// SetSortはSortパラメータを設定します。
 func (srv *ProductService) SetSort(sort string) *ProductService {
     srv.Sort = TrimString(sort)
     return srv
@@ -229,7 +229,7 @@ func (srv *ProductService) SetSort(sort string) *ProductService {
 
 // SetSite set the specified argument to ProductService.Site
 //
-// SetSiteはSiteパラメータを設定します
+// SetSiteはSiteパラメータを設定します。
 func (srv *ProductService) SetSite(site string) *ProductService {
     srv.Site = TrimString(site)
     return srv
@@ -237,7 +237,7 @@ func (srv *ProductService) SetSite(site string) *ProductService {
 
 // SetService set the specified argument to ProductService.Service
 //
-// SetServiceはServiceパラメータを設定します
+// SetServiceはServiceパラメータを設定します。
 func (srv *ProductService) SetService(service string) *ProductService {
     srv.Service = TrimString(service)
     return srv
@@ -245,17 +245,17 @@ func (srv *ProductService) SetService(service string) *ProductService {
 
 // SetFloor set the specified argument to ProductService.Floor
 //
-// SetFloorはFloorパラメータを設定します
+// SetFloorはFloorパラメータを設定します。
 func (srv *ProductService) SetFloor(floor string) *ProductService {
     srv.Floor = TrimString(floor)
     return srv
 }
 
 // ValidateLength validates ProductService.Length within the range (1 <= value <= 100).
-//  refer to ValidateRange for more information about the range to validate.
+// Refer to ValidateRange for more information about the range to validate.
 //
 // ValidateLengthはProductService.Lengthが範囲内(1 <= value <= 100)にあるか検証します。
-//  検証範囲について更に詳しく知りたい方はValidateRangeを参照してください
+// 検証範囲について更に詳しく知りたい方はValidateRangeを参照してください。
 func (srv *ProductService) ValidateLength() bool {
     return ValidateRange(srv.Length, 1, DEFAULT_PRODUCT_MAX_LENGTH)
 }
