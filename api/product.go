@@ -24,6 +24,9 @@ type ProductService struct {
     Offset       int64  `mapstructure:"offset"`
     Sort         string `mapstructure:"sort"`
     Keyword      string `mapstructure:"keyword"`
+    Article      string `mapstructure:"article"`
+    ArticleId    string `mapstructure:"article_id"`
+    Stock        string `mapstructure:"mono_stock"`
 }
 
 type ProductRawResponse struct {
@@ -154,6 +157,9 @@ func NewProductService(affiliateId, apiId string) *ProductService {
         Offset:      DEFAULT_API_OFFSET,
         Sort:        "",
         Keyword:     "",
+        Article:     "",
+        ArticleId:   "",
+        Stock:       "",
     }
 }
 
@@ -251,6 +257,30 @@ func (srv *ProductService) SetFloor(floor string) *ProductService {
     return srv
 }
 
+// SetArticle set the specified argument to ProductService.Article
+//
+// SetArticleはArticleパラメータを設定します。
+func (srv *ProductService) SetArticle(stock string) *ProductService {
+    srv.Article = TrimString(stock)
+    return srv
+}
+
+// SetArticleId set the specified argument to ProductService.ArticleId
+//
+// SetArticleIdはArticleIdパラメータを設定します。
+func (srv *ProductService) SetArticleId(stock string) *ProductService {
+    srv.ArticleId = TrimString(stock)
+    return srv
+}
+
+// SetStock set the specified argument to ProductService.Stock
+//
+// SetStockはStockパラメータを設定します。
+func (srv *ProductService) SetStock(stock string) *ProductService {
+    srv.Stock = TrimString(stock)
+    return srv
+}
+
 // ValidateLength validates ProductService.Length within the range (1 <= value <= DEFAULT_PRODUCT_MAX_LENGTH).
 // Refer to ValidateRange for more information about the range to validate.
 //
@@ -314,6 +344,15 @@ func (srv *ProductService) BuildRequestUrl() (string, error) {
     }
     if (srv.Keyword != "") {
         queries.Set("keyword", srv.Keyword)
+    }
+    if (srv.Article != "") {
+        queries.Set("article", srv.Article)
+    }
+    if (srv.ArticleId != "") {
+        queries.Set("article_id", srv.ArticleId)
+    }
+    if (srv.Stock != "") {
+        queries.Set("mono_stock", srv.Stock)
     }
     return API_BASE_URL + "/ItemList?" + queries.Encode(), nil
 }
