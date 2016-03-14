@@ -307,6 +307,39 @@ func TestBuildRequestUrlInProductService(t *testing.T) {
         t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
     }
     srv.SetFloor("")
+
+    srv.SetArticle("actress")
+    expected = expected_base + "&article=" + url.QueryEscape("actress") + "&site=" + SITE_ADULT
+    u, err = srv.BuildRequestUrl()
+    if u != expected {
+        t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+    }
+    if err != nil {
+        t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+    }
+    srv.SetArticle("")
+
+    srv.SetArticleId("1011199")
+    expected = expected_base + "&article_id=" + url.QueryEscape("1011199") + "&site=" + SITE_ADULT
+    u, err = srv.BuildRequestUrl()
+    if u != expected {
+        t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+    }
+    if err != nil {
+        t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+    }
+    srv.SetArticleId("")
+
+    srv.SetStock("mono")
+    expected = expected_base + "&mono_stock=" + url.QueryEscape("mono") + "&site=" + SITE_ADULT
+    u, err = srv.BuildRequestUrl()
+    if u != expected {
+        t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+    }
+    if err != nil {
+        t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+    }
+    srv.SetStock("")
 }
 
 func TestBuildRequestUrlWithoutApiIdInInProductService(t *testing.T) {
