@@ -1,4 +1,9 @@
-# DMM SDK for Go (v3) [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk)
+# DMM SDK for Go (v3)
+[![GoDoc](https://img.shields.io/badge/go-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/LICENSE)
+[![Build Status](http://img.shields.io/travis/usk81/base65536.svg?style=flat-square)](https://travis-ci.org/DMMcomLabo/dmm-go-sdk)
+[![Coverage Status](https://img.shields.io/coveralls/usk81/base65536.svg?style=flat-square)](https://coveralls.io/github/DMMcomLabo/dmm-go-sdk?branch=master)
+
 DMM Web API version.3 クライアント
 
 参照: [DMM Affiliate](https://affiliate.dmm.com/)
