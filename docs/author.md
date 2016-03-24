@@ -1,7 +1,7 @@
-# 作者検索API
-## 使用例
+## 作者検索API
+#### 使用例
 
-```
+```go
 package (  
   "fmt"  
   "github.com/DMMcomLabo/dmm-go-sdk"  
@@ -23,7 +23,7 @@ if err != nil {
 
 もしくは以下のように1行で書くこともできます。
 
-```
+```go
 package (
   "fmt"
   "github.com/DMMcomLabo/dmm-go-sdk/api"
@@ -37,7 +37,7 @@ if err != nil {
 }
 ```
 
-## リクエストパラメータ
+#### リクエストパラメータ
 APIのパラメータとSDKのパラメータの関連について
 
 | 論理名 | API (物理名) | 必須 | SDK | データ型 |
