@@ -1,8 +1,8 @@
 # DMM SDK for Go (v3)
 [![GoDoc](https://img.shields.io/badge/go-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk)
 [![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/LICENSE)
-[![Build Status](http://img.shields.io/travis/usk81/base65536.svg?style=flat-square)](https://travis-ci.org/DMMcomLabo/dmm-go-sdk)
-[![Coverage Status](https://img.shields.io/coveralls/usk81/base65536.svg?style=flat-square)](https://coveralls.io/github/DMMcomLabo/dmm-go-sdk?branch=master)
+[![Build Status](http://img.shields.io/travis/DMMcomLabo/dmm-go-sdk.svg?style=flat-square)](https://travis-ci.org/DMMcomLabo/dmm-go-sdk)
+[![Coverage Status](https://img.shields.io/coveralls/DMMcomLabo/dmm-go-sdk.svg?style=flat-square)](https://coveralls.io/github/DMMcomLabo/dmm-go-sdk?branch=master)
 
 DMM Web API version.3 Client for Go
 
