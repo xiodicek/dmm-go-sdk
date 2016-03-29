@@ -9,7 +9,7 @@ package (
 
 client := dmm.New("foobarbazbuzz", "dummy-990")
 api := client.Product
-api.SetSite(SITE_ALLAGES)
+api.SetSite(SiteGeneral)
 api.SetService("mono")
 api.SetFloor("dvd")
 api.SetSort("date")
@@ -30,7 +30,7 @@ package (
   "github.com/DMMcomLabo/dmm-go-sdk/api"
 )
 
-rst, err := NewProductService("foobarbazbuzz", "dummy-999").SetSite(SITE_ADULT).SetLength(1).Execute()
+rst, err := NewProductService("foobarbazbuzz", "dummy-999").SetSite(SiteAdult).SetLength(1).Execute()
 if err != nil {
   fmt.Println(err)
 } else {
