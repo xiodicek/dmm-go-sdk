@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/url"
+	"reflect"
 	"strconv"
 	"testing"
 )
@@ -216,6 +217,27 @@ func TestBuildRequestURLWithWrongAffiliateIDInAuthorService(t *testing.T) {
 	}
 	if err == nil {
 		t.Fatalf("AuthorService.BuildRequestURL is expected to return error.")
+	}
+}
+
+func TestExcuteRequestAuthorAPIToServer(t *testing.T) {
+	if ! RequestAvailable {
+		t.Skip("Not set valid credentials")
+	}
+
+	srv := NewAuthorService(TestAffiliateID, TestAPIID)
+	srv.SetFloorID("40")
+	srv.SetInitial("あ")
+	srv.SetLength(100)
+	srv.SetOffset(1)
+
+	rst, err := srv.Execute()
+	if err != nil {
+		t.Skip("Maybe, The network is down.")
+	}
+
+	if reflect.TypeOf(rst).String() != "*api.AuthorResponse" {
+		t.Fatalf("AuthorService.Execute is expected to return *api.AuthorResponse")
 	}
 }
 

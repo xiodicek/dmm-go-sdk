@@ -1,6 +1,7 @@
 package api
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -56,6 +57,22 @@ func TestBuildRequestURLWithWrongAffiliateIDInFloorService(t *testing.T) {
 	}
 	if err == nil {
 		t.Fatalf("FloorService.BuildRequestURL is expected to return error.")
+	}
+}
+
+func TestExcuteRequestFloorAPIToServer(t *testing.T) {
+	if ! RequestAvailable {
+		t.Skip("Not set valid credentials")
+	}
+
+	srv := NewFloorService(TestAffiliateID, TestAPIID)
+	rst, err := srv.Execute()
+	if err != nil {
+		t.Skip("Maybe, The network is down.")
+	}
+
+	if reflect.TypeOf(rst).String() != "*api.FloorResponse" {
+		t.Fatalf("FloorService.Execute is expected to return *api.FloorResponse")
 	}
 }
 

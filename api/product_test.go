@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/url"
+	"reflect"
 	"strconv"
 	"testing"
 )
@@ -363,6 +364,28 @@ func TestBuildRequestURLWithWrongAffiliateIDInProductService(t *testing.T) {
 	}
 	if err == nil {
 		t.Fatalf("ProductService.BuildRequestURL is expected to return error.")
+	}
+}
+
+func TestExcuteRequestProductAPIToServer(t *testing.T) {
+	if ! RequestAvailable {
+		t.Skip("Not set valid credentials")
+	}
+
+	srv := NewProductService(TestAffiliateID, TestAPIID)
+	srv.SetSite("DMM.R18")
+	srv.SetService("mono")
+	srv.SetFloor("dvd")
+	srv.SetSort("date")
+	srv.SetLength(1)
+
+	rst, err := srv.Execute()
+	if err != nil {
+		t.Skip("Maybe, The network is down.")
+	}
+
+	if reflect.TypeOf(rst).String() != "*api.ProductResponse" {
+		t.Fatalf("ProductService.Execute is expected to return *api.ProductResponse")
 	}
 }
 

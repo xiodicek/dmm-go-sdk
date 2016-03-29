@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/url"
+	"reflect"
 	"strconv"
 	"testing"
 )
@@ -420,6 +421,33 @@ func TestBuildRequestURLWithWrongAffiliateIDInActressService(t *testing.T) {
 	}
 	if err == nil {
 		t.Fatalf("ActressService.BuildRequestURL is expected to return error.")
+	}
+}
+
+func TestExcuteWeakRequestActressAPIToServer(t *testing.T) {
+	if ! RequestAvailable {
+		t.Skip("Not set valid credentials")
+	}
+
+	srv := NewActressService(TestAffiliateID, TestAPIID)
+	srv.SetInitial("あ")
+	srv.SetKeyword("あさみ")
+	srv.SetBust("90")
+	srv.SetWaist("-60")
+	srv.SetHip("85-90")
+	srv.SetHeight("160")
+	srv.SetBirthday("19900101")
+	srv.SetSort("-name")
+	srv.SetLength(20)
+	srv.SetOffset(1)
+
+	rst, err := srv.Execute()
+	if err != nil {
+		t.Skip("Maybe, The network is down.")
+	}
+
+	if reflect.TypeOf(rst).String() != "*api.ActressResponse" {
+		t.Fatalf("ActressService.Execute is expected to return *api.ActressResponse")
 	}
 }
 
