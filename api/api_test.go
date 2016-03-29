@@ -1,6 +1,7 @@
 package api
 
 import (
+	"os"
 	"reflect"
 	"testing"
 )
@@ -9,6 +10,19 @@ const (
 	DummyAffliateID = "foobar-999"
 	DummyAPIID      = "TXpEZ5D4T2xB3J5cuSLf"
 )
+
+var (
+	TestAffiliateID  string
+	TestAPIID        string
+	RequestAvailable bool
+)
+
+func init() {
+	TestAffiliateID = os.Getenv("DMM_TEST_AFFILIATE_ID")
+	TestAPIID = os.Getenv("DMM_TEST_API_ID")
+
+	RequestAvailable = (ValidateAffiliateID(TestAffiliateID) && TestAPIID != "")
+}
 
 func TestRequestJSON(t *testing.T) {
 	testURL := "https://httpbin.org/get?foo=bar"
