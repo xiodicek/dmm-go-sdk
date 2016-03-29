@@ -221,7 +221,7 @@ func TestBuildRequestURLWithWrongAffiliateIDInSeriesService(t *testing.T) {
 }
 
 func TestExcuteRequestSeriesAPIToServer(t *testing.T) {
-	if ! RequestAvailable {
+	if !RequestAvailable {
 		t.Skip("Not set valid credentials")
 	}
 

@@ -221,13 +221,13 @@ func TestBuildRequestURLWithWrongAffiliateIDInGenreService(t *testing.T) {
 }
 
 func TestExcuteRequestAPIServer(t *testing.T) {
-	if ! RequestAvailable {
+	if !RequestAvailable {
 		t.Skip("Not set valid credentials")
 	}
 }
 
 func TestExcuteRequestGenreAPIToServer(t *testing.T) {
-	if ! RequestAvailable {
+	if !RequestAvailable {
 		t.Skip("Not set valid credentials")
 	}
 

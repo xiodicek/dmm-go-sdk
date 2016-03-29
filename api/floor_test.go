@@ -61,7 +61,7 @@ func TestBuildRequestURLWithWrongAffiliateIDInFloorService(t *testing.T) {
 }
 
 func TestExcuteRequestFloorAPIToServer(t *testing.T) {
-	if ! RequestAvailable {
+	if !RequestAvailable {
 		t.Skip("Not set valid credentials")
 	}
 

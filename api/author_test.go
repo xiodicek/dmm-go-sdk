@@ -221,7 +221,7 @@ func TestBuildRequestURLWithWrongAffiliateIDInAuthorService(t *testing.T) {
 }
 
 func TestExcuteRequestAuthorAPIToServer(t *testing.T) {
-	if ! RequestAvailable {
+	if !RequestAvailable {
 		t.Skip("Not set valid credentials")
 	}
 

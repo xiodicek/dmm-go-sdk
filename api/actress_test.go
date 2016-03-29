@@ -425,7 +425,7 @@ func TestBuildRequestURLWithWrongAffiliateIDInActressService(t *testing.T) {
 }
 
 func TestExcuteWeakRequestActressAPIToServer(t *testing.T) {
-	if ! RequestAvailable {
+	if !RequestAvailable {
 		t.Skip("Not set valid credentials")
 	}
 
