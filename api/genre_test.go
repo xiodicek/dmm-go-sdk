@@ -7,16 +7,16 @@ import (
 )
 
 func TestNewGenreService(t *testing.T) {
-	affiliate_id := Dummy_Affliate_Id
-	api_id := Dummy_Api_Id
+	affiliateID := DummyAffliateID
+	apiID := DummyAPIID
 
-	srv := NewGenreService(affiliate_id, api_id)
-	if srv.AffiliateId != affiliate_id {
-		t.Fatalf("GenreService.AffiliateId is expected to equal the input value(affiliate_id)")
+	srv := NewGenreService(affiliateID, apiID)
+	if srv.AffiliateID != affiliateID {
+		t.Fatalf("GenreService.AffiliateID is expected to equal the input value(affiliateID)")
 	}
 
-	if srv.ApiId != api_id {
-		t.Fatalf("GenreService.ApiId is expected to equal the input value(api_id)")
+	if srv.ApiID != apiID {
+		t.Fatalf("GenreService.ApiID is expected to equal the input value(apiID)")
 	}
 }
 
@@ -61,19 +61,19 @@ func TestValidateLengthInGenreService(t *testing.T) {
 		t.Fatalf("GenreService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_API_LENGTH
+	target = DefaultAPILength
 	srv.SetLength(target)
 	if srv.ValidateLength() == false {
 		t.Fatalf("GenreService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_MAX_LENGTH
+	target = DefaultMaxLength
 	srv.SetLength(target)
 	if srv.ValidateLength() == false {
 		t.Fatalf("GenreService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_MAX_LENGTH + 1
+	target = DefaultMaxLength + 1
 	srv.SetLength(target)
 	if srv.ValidateLength() == true {
 		t.Fatalf("GenreService.ValidateLength is expected FALSE.")
@@ -122,103 +122,103 @@ func TestValidateOffsetInGenreService(t *testing.T) {
 	}
 }
 
-func TestBuildRequestUrlInGenreService(t *testing.T) {
+func TestBuildRequestURLInGenreService(t *testing.T) {
 	var srv *GenreService
 	var u string
 	var err error
 	var expected string
 
 	srv = dummyGenreService()
-	srv.SetFloorId("40")
-	u, err = srv.BuildRequestUrl()
-	expected = API_BASE_URL + "/GenreSearch?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id + "&floor_id=40" + "&hits=" + strconv.FormatInt(DEFAULT_API_LENGTH, 10) + "&offset=" + strconv.FormatInt(DEFAULT_API_OFFSET, 10)
+	srv.SetFloorID("40")
+	u, err = srv.BuildRequestURL()
+	expected = APIBaseURL + "/GenreSearch?affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID + "&floor_id=40" + "&hits=" + strconv.FormatInt(DefaultAPILength, 10) + "&offset=" + strconv.FormatInt(DefaultAPIOffset, 10)
 	if u != expected {
-		t.Fatalf("GenreService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("GenreService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("GenreService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("GenreService.BuildRequestURL is not expected to have error")
 	}
 
 	srv = dummyGenreService()
 	srv.SetLength(0)
 	srv.SetOffset(0)
-	srv.SetFloorId("40")
-	u, err = srv.BuildRequestUrl()
-	expected = API_BASE_URL + "/GenreSearch?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id + "&floor_id=40"
-	expected_base := expected
+	srv.SetFloorID("40")
+	u, err = srv.BuildRequestURL()
+	expected = APIBaseURL + "/GenreSearch?affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID + "&floor_id=40"
+	expectedBase := expected
 	if u != expected {
-		t.Fatalf("GenreService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("GenreService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("GenreService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("GenreService.BuildRequestURL is not expected to have error")
 	}
 
 	srv.SetLength(-1)
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("GenreService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("GenreService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("GenreService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("GenreService.BuildRequestURL is expected to return error.")
 	}
 	srv.SetLength(0)
 
 	srv.SetOffset(-1)
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("GenreService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("GenreService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("GenreService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("GenreService.BuildRequestURL is expected to return error.")
 	}
 	srv.SetOffset(0)
 
-	srv.SetFloorId("")
-	u, err = srv.BuildRequestUrl()
+	srv.SetFloorID("")
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("GenreService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("GenreService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("GenreService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("GenreService.BuildRequestURL is expected to return error.")
 	}
-	srv.SetFloorId("40")
+	srv.SetFloorID("40")
 
 	srv.SetInitial("あ")
-	expected = expected_base + "&initial=" + url.QueryEscape("あ")
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&initial=" + url.QueryEscape("あ")
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("GenreService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("GenreService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("GenreService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("GenreService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetInitial("")
 }
 
-func TestBuildRequestUrlWithoutApiIdInGenreService(t *testing.T) {
+func TestBuildRequestURLWithoutApiIDInGenreService(t *testing.T) {
 	srv := dummyGenreService()
-	srv.ApiId = ""
-	u, err := srv.BuildRequestUrl()
+	srv.ApiID = ""
+	u, err := srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("GenreService.BuildRequestUrl is expected empty if API ID is not set.")
+		t.Fatalf("GenreService.BuildRequestURL is expected empty if API ID is not set.")
 	}
 	if err == nil {
-		t.Fatalf("GenreService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("GenreService.BuildRequestURL is expected to return error.")
 	}
 }
 
-func TestBuildRequestUrlWithWrongAffiliateIdInGenreService(t *testing.T) {
+func TestBuildRequestURLWithWrongAffiliateIDInGenreService(t *testing.T) {
 	srv := dummyGenreService()
-	srv.AffiliateId = "fizzbizz-100"
-	u, err := srv.BuildRequestUrl()
+	srv.AffiliateID = "fizzbizz-100"
+	u, err := srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("GenreService.BuildRequestUrl is expected empty if wrong Affiliate ID is set.")
+		t.Fatalf("GenreService.BuildRequestURL is expected empty if wrong Affiliate ID is set.")
 	}
 	if err == nil {
-		t.Fatalf("GenreService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("GenreService.BuildRequestURL is expected to return error.")
 	}
 }
 
 func dummyGenreService() *GenreService {
-	return NewGenreService(Dummy_Affliate_Id, Dummy_Api_Id)
+	return NewGenreService(DummyAffliateID, DummyAPIID)
 }

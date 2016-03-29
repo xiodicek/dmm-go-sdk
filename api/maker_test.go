@@ -7,16 +7,16 @@ import (
 )
 
 func TestNewMakerService(t *testing.T) {
-	affiliate_id := Dummy_Affliate_Id
-	api_id := Dummy_Api_Id
+	affiliateID := DummyAffliateID
+	apiID := DummyAPIID
 
-	srv := NewMakerService(affiliate_id, api_id)
-	if srv.AffiliateId != affiliate_id {
-		t.Fatalf("MakerService.AffiliateId is expected to equal the input value(affiliate_id)")
+	srv := NewMakerService(affiliateID, apiID)
+	if srv.AffiliateID != affiliateID {
+		t.Fatalf("MakerService.AffiliateID is expected to equal the input value(affiliateID)")
 	}
 
-	if srv.ApiId != api_id {
-		t.Fatalf("MakerService.ApiId is expected to equal the input value(api_id)")
+	if srv.ApiID != apiID {
+		t.Fatalf("MakerService.ApiID is expected to equal the input value(apiID)")
 	}
 }
 
@@ -61,19 +61,19 @@ func TestValidateLengthInMakerService(t *testing.T) {
 		t.Fatalf("MakerService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_API_LENGTH
+	target = DefaultAPILength
 	srv.SetLength(target)
 	if srv.ValidateLength() == false {
 		t.Fatalf("MakerService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_MAX_LENGTH
+	target = DefaultMaxLength
 	srv.SetLength(target)
 	if srv.ValidateLength() == false {
 		t.Fatalf("MakerService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_MAX_LENGTH + 1
+	target = DefaultMaxLength + 1
 	srv.SetLength(target)
 	if srv.ValidateLength() == true {
 		t.Fatalf("MakerService.ValidateLength is expected FALSE.")
@@ -88,7 +88,7 @@ func TestValidateLengthInMakerService(t *testing.T) {
 	target = -1
 	srv.SetLength(target)
 	if srv.ValidateLength() == true {
-		t.Fatalf("MakerService.ValidateLength is expected FALSE.")
+		t.Fatalf("MakerService.ValidateLength is expected FALSE")
 	}
 }
 
@@ -100,125 +100,125 @@ func TestValidateOffsetInMakerService(t *testing.T) {
 	target = 1
 	srv.SetOffset(target)
 	if srv.ValidateOffset() == false {
-		t.Fatalf("MakerService.ValidateOffset is expected TRUE.")
+		t.Fatalf("MakerService.ValidateOffset is expected TRUE")
 	}
 
 	target = 100
 	srv.SetOffset(target)
 	if srv.ValidateOffset() == false {
-		t.Fatalf("MakerService.ValidateOffset is expected TRUE.")
+		t.Fatalf("MakerService.ValidateOffset is expected TRUE")
 	}
 
 	target = 0
 	srv.SetOffset(target)
 	if srv.ValidateOffset() == true {
-		t.Fatalf("MakerService.ValidateOffset is expected FALSE.")
+		t.Fatalf("MakerService.ValidateOffset is expected FALSE")
 	}
 
 	target = -1
 	srv.SetOffset(target)
 	if srv.ValidateOffset() == true {
-		t.Fatalf("MakerService.ValidateOffset is expected FALSE.")
+		t.Fatalf("MakerService.ValidateOffset is expected FALSE")
 	}
 }
 
-func TestBuildRequestUrlInMakerService(t *testing.T) {
+func TestBuildRequestURLInMakerService(t *testing.T) {
 	var srv *MakerService
 	var u string
 	var err error
 	var expected string
 
 	srv = dummyMakerService()
-	srv.SetFloorId("40")
-	u, err = srv.BuildRequestUrl()
-	expected = API_BASE_URL + "/MakerSearch?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id + "&floor_id=40" + "&hits=" + strconv.FormatInt(DEFAULT_API_LENGTH, 10) + "&offset=" + strconv.FormatInt(DEFAULT_API_OFFSET, 10)
+	srv.SetFloorID("40")
+	u, err = srv.BuildRequestURL()
+	expected = APIBaseURL + "/MakerSearch?affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID + "&floor_id=40" + "&hits=" + strconv.FormatInt(DefaultAPILength, 10) + "&offset=" + strconv.FormatInt(DefaultAPIOffset, 10)
 	if u != expected {
-		t.Fatalf("MakerService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("MakerService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("MakerService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("MakerService.BuildRequestURL is not expected to have error")
 	}
 
 	srv = dummyMakerService()
 	srv.SetLength(0)
 	srv.SetOffset(0)
-	srv.SetFloorId("40")
-	u, err = srv.BuildRequestUrl()
-	expected = API_BASE_URL + "/MakerSearch?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id + "&floor_id=40"
-	expected_base := expected
+	srv.SetFloorID("40")
+	u, err = srv.BuildRequestURL()
+	expected = APIBaseURL + "/MakerSearch?affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID + "&floor_id=40"
+	expectedBase := expected
 	if u != expected {
-		t.Fatalf("MakerService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("MakerService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("MakerService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("MakerService.BuildRequestURL is not expected to have error")
 	}
 
 	srv.SetLength(-1)
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("MakerService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("MakerService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("MakerService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("MakerService.BuildRequestURL is expected to return error.")
 	}
 	srv.SetLength(0)
 
 	srv.SetOffset(-1)
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("MakerService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("MakerService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("MakerService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("MakerService.BuildRequestURL is expected to return error.")
 	}
 	srv.SetOffset(0)
 
-	srv.SetFloorId("")
-	u, err = srv.BuildRequestUrl()
+	srv.SetFloorID("")
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("MakerService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("MakerService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("MakerService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("MakerService.BuildRequestURL is expected to return error.")
 	}
-	srv.SetFloorId("40")
+	srv.SetFloorID("40")
 
 	srv.SetInitial("あ")
-	expected = expected_base + "&initial=" + url.QueryEscape("あ")
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&initial=" + url.QueryEscape("あ")
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("MakerService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("MakerService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("MakerService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("MakerService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetInitial("")
 }
 
-func TestBuildRequestUrlWithoutApiIdInMakerService(t *testing.T) {
+func TestBuildRequestURLWithoutApiIDInMakerService(t *testing.T) {
 	srv := dummyMakerService()
-	srv.ApiId = ""
-	u, err := srv.BuildRequestUrl()
+	srv.ApiID = ""
+	u, err := srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("MakerService.BuildRequestUrl is expected empty if API ID is not set.")
+		t.Fatalf("MakerService.BuildRequestURL is expected empty if API ID is not set.")
 	}
 	if err == nil {
-		t.Fatalf("MakerService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("MakerService.BuildRequestURL is expected to return error.")
 	}
 }
 
-func TestBuildRequestUrlWithWrongAffiliateIdInMakerService(t *testing.T) {
+func TestBuildRequestURLWithWrongAffiliateIDInMakerService(t *testing.T) {
 	srv := dummyMakerService()
-	srv.AffiliateId = "fizzbizz-100"
-	u, err := srv.BuildRequestUrl()
+	srv.AffiliateID = "fizzbizz-100"
+	u, err := srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("MakerService.BuildRequestUrl is expected empty if wrong Affiliate ID is set.")
+		t.Fatalf("MakerService.BuildRequestURL is expected empty if wrong Affiliate ID is set.")
 	}
 	if err == nil {
-		t.Fatalf("MakerService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("MakerService.BuildRequestURL is expected to return error.")
 	}
 }
 
 func dummyMakerService() *MakerService {
-	return NewMakerService(Dummy_Affliate_Id, Dummy_Api_Id)
+	return NewMakerService(DummyAffliateID, DummyAPIID)
 }

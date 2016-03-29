@@ -8,15 +8,14 @@ import (
 )
 
 const (
-	DEFAULT_PRODUCT_API_LENGTH = 20
-	DEFAULT_PRODUCT_MAX_LENGTH = 100
-
-	DEFAULT_PRODUCT_MAX_OFFSET = 50000
+	DefaultProductAPILength = 20
+	DefaultProductMaxLength = 100
+	DefaultProductMaxOffset = 50000
 )
 
 type ProductService struct {
-	ApiId       string `mapstructure:"api_id"`
-	AffiliateId string `mapstructure:"affiliate_id"`
+	ApiID       string `mapstructure:"api_id"`
+	AffiliateID string `mapstructure:"affiliate_id"`
 	Site        string `mapstructure:"site"`
 	Service     string `mapstructure:"service"`
 	Floor       string `mapstructure:"floor"`
@@ -25,7 +24,7 @@ type ProductService struct {
 	Sort        string `mapstructure:"sort"`
 	Keyword     string `mapstructure:"keyword"`
 	Article     string `mapstructure:"article"`
-	ArticleId   string `mapstructure:"article_id"`
+	ArticleID   string `mapstructure:"article_id"`
 	Stock       string `mapstructure:"mono_stock"`
 }
 
@@ -42,28 +41,28 @@ type ProductResponse struct {
 }
 
 type Item struct {
-	AffiliateUrl       string             `mapstructure:"affiliateURL"`
-	AffiliateUrlMobile string             `mapstructure:"affiliateURLsp"`
+	AffiliateURL       string             `mapstructure:"affiliateURL"`
+	AffiliateURLMobile string             `mapstructure:"affiliateURLsp"`
 	CategoryName       string             `mapstructure:"category_name"`
 	Comment            string             `mapstructure:"comment"`
-	ContentId          string             `mapstructure:"content_id"`
+	ContentID          string             `mapstructure:"content_id"`
 	Date               string             `mapstructure:"date"`
 	FloorName          string             `mapstructure:"floor_name"`
 	FloorCode          string             `mapstructure:"floor_code"`
 	ISBN               string             `mapstructure:"isbn"`
 	JANCode            string             `mapstructure:"jancode"`
 	ProductCode        string             `mapstructure:"maker_product"`
-	ProductId          string             `mapstructure:"product_id"`
+	ProductID          string             `mapstructure:"product_id"`
 	ServiceName        string             `mapstructure:"service_name"`
 	ServiceCode        string             `mapstructure:"service_code"`
 	Stock              string             `mapstructure:"stock"`
 	Title              string             `mapstructure:"title"`
-	Url                string             `mapstructure:"URL"`
-	UrlMoble           string             `mapstructure:"URLsp"`
+	URL                string             `mapstructure:"URL"`
+	URLMoble           string             `mapstructure:"URLsp"`
 	Volume             string             `mapstructure:"volume"`
-	ImageUrl           ImageUrlList       `mapstructure:"imageURL"`
-	SampleImageUrl     SampleImageUrlList `mapstructure:"sampleImageURL"`
-	SampleMovieUrl     SampleMovieUrlList `mapstructure:"sampleMovieURL"`
+	ImageURL           ImageURLList       `mapstructure:"imageURL"`
+	SampleImageURL     SampleImageURLList `mapstructure:"sampleImageURL"`
+	SampleMovieURL     SampleMovieURLList `mapstructure:"sampleMovieURL"`
 	Review             ReviewInformation  `mapstructure:"review"`
 	PriceInformation   PriceInformation   `mapstructure:"prices"`
 	ItemInformation    ItemInformation    `mapstructure:"iteminfo"`
@@ -71,27 +70,27 @@ type Item struct {
 	CdInformation      CdInformation      `mapstructure:"cdinfo"`
 }
 
-type ImageUrlList struct {
+type ImageURLList struct {
 	List  string `mapstructure:"list"`
 	Small string `mapstructure:"small"`
 	Large string `mapstructure:"large"`
 }
 
-type SampleImageUrlList struct {
-	Sample_s SmallSampleList `mapstructure:"sample_s"`
+type SampleImageURLList struct {
+	SampleS SmallSampleList `mapstructure:"sample_s"`
 }
 
 type SmallSampleList struct {
 	Image []string `mapstructure:"image"`
 }
 
-type SampleMovieUrlList struct {
-	Size_476_306 string `mapstructure:"size_476_306"`
-	Size_560_360 string `mapstructure:"size_560_360"`
-	Size_644_414 string `mapstructure:"size_644_414"`
-	Size_720_480 string `mapstructure:"size_720_480"`
-	PC_flag      bool   `mapstructure:"pc_flag"`
-	SP_flag      bool   `mapstructure:"sp_flag"`
+type SampleMovieURLList struct {
+	Size476_306 string `mapstructure:"size_476_306"`
+	Size560_360 string `mapstructure:"size_560_360"`
+	Size644_414 string `mapstructure:"size_644_414"`
+	Size720_480 string `mapstructure:"size_720_480"`
+	PCFlag      bool   `mapstructure:"pc_flag"`
+	SPFlag      bool   `mapstructure:"sp_flag"`
 }
 
 type PriceInformation struct {
@@ -126,7 +125,7 @@ type ItemInformation struct {
 }
 
 type ItemComponent struct {
-	Id   string `mapstructure:"id"`
+	ID   string `mapstructure:"id"`
 	Name string `mapstructure:"name"`
 }
 
@@ -146,27 +145,27 @@ type ReviewInformation struct {
 // NewProductService returns a new service for the given affiliate ID and API ID.
 //
 // NewProductServiceは渡したアフィリエイトIDとAPI IDを使用して新しい serviceを返します。
-func NewProductService(affiliateId, apiId string) *ProductService {
+func NewProductService(affiliateID, apiID string) *ProductService {
 	return &ProductService{
-		ApiId:       apiId,
-		AffiliateId: affiliateId,
+		ApiID:       apiID,
+		AffiliateID: affiliateID,
 		Site:        "",
 		Service:     "",
 		Floor:       "",
-		Length:      DEFAULT_PRODUCT_API_LENGTH,
-		Offset:      DEFAULT_API_OFFSET,
+		Length:      DefaultProductAPILength,
+		Offset:      DefaultAPIOffset,
 		Sort:        "",
 		Keyword:     "",
 		Article:     "",
-		ArticleId:   "",
+		ArticleID:   "",
 		Stock:       "",
 	}
 }
 
-// Execute requests a url is created by BuildRequestUrl.
+// Execute requests a url is created by BuildRequestURL.
 // Use ExecuteWeak If you want get this response in interface{}.
 //
-// BuildRequestUrlで生成したURLにリクエストします。
+// BuildRequestURLで生成したURLにリクエストします。
 // もし interface{} でこのレスポンスを取得したい場合は ExecuteWeak を使用してください。
 func (srv *ProductService) Execute() (*ProductResponse, error) {
 	result, err := srv.ExecuteWeak()
@@ -180,16 +179,16 @@ func (srv *ProductService) Execute() (*ProductResponse, error) {
 	return &raw.Result, nil
 }
 
-// ExecuteWeak requests a url is created by BuildRequestUrl.
+// ExecuteWeak requests a url is created by BuildRequestURL.
 //
-// BuildRequestUrlで生成したURLにリクエストします。
+// BuildRequestURLで生成したURLにリクエストします。
 func (srv *ProductService) ExecuteWeak() (interface{}, error) {
-	reqUrl, err := srv.BuildRequestUrl()
+	reqURL, err := srv.BuildRequestURL()
 	if err != nil {
 		return nil, err
 	}
 
-	return RequestJson(reqUrl)
+	return RequestJSON(reqURL)
 }
 
 // SetLength set the specified argument to ProductService.Length
@@ -265,11 +264,11 @@ func (srv *ProductService) SetArticle(stock string) *ProductService {
 	return srv
 }
 
-// SetArticleId set the specified argument to ProductService.ArticleId
+// SetArticleID set the specified argument to ProductService.ArticleID
 //
-// SetArticleIdはArticleIdパラメータを設定します。
-func (srv *ProductService) SetArticleId(stock string) *ProductService {
-	srv.ArticleId = TrimString(stock)
+// SetArticleIDはArticleIDパラメータを設定します。
+func (srv *ProductService) SetArticleID(stock string) *ProductService {
+	srv.ArticleID = TrimString(stock)
 	return srv
 }
 
@@ -281,42 +280,42 @@ func (srv *ProductService) SetStock(stock string) *ProductService {
 	return srv
 }
 
-// ValidateLength validates ProductService.Length within the range (1 <= value <= DEFAULT_PRODUCT_MAX_LENGTH).
+// ValidateLength validates ProductService.Length within the range (1 <= value <= DefaultProductMaxLength).
 // Refer to ValidateRange for more information about the range to validate.
 //
-// ValidateLengthはProductService.Lengthが範囲内(1 <= value <= DEFAULT_PRODUCT_MAX_LENGTH)にあるか検証します。
+// ValidateLengthはProductService.Lengthが範囲内(1 <= value <= DefaultProductMaxLength)にあるか検証します。
 // 検証範囲について更に詳しく知りたい方はValidateRangeを参照してください。
 func (srv *ProductService) ValidateLength() bool {
-	return ValidateRange(srv.Length, 1, DEFAULT_PRODUCT_MAX_LENGTH)
+	return ValidateRange(srv.Length, 1, DefaultProductMaxLength)
 }
 
-// ValidateOffset validates ProductService.Offset within the range (1 <= value <= DEFAULT_PRODUCT_MAX_OFFSET).
+// ValidateOffset validates ProductService.Offset within the range (1 <= value <= DefaultProductMaxOffset).
 // Refer to ValidateRange for more information about the range to validate.
 //
-// ValidateOffsetはProductService.Offsetが範囲内(1 <= value <= DEFAULT_PRODUCT_MAX_OFFSET)にあるか検証します。
+// ValidateOffsetはProductService.Offsetが範囲内(1 <= value <= DefaultProductMaxOffset)にあるか検証します。
 // 検証範囲について更に詳しく知りたい方はValidateRangeを参照してください。
 func (srv *ProductService) ValidateOffset() bool {
-	return ValidateRange(srv.Offset, 1, DEFAULT_PRODUCT_MAX_OFFSET)
+	return ValidateRange(srv.Offset, 1, DefaultProductMaxOffset)
 }
 
-// BuildRequestUrl creates url to request product API.
+// BuildRequestURL creates url to request product API.
 //
-// BuildRequestUrlは商品検索APIにリクエストするためのURLを作成します。
-func (srv *ProductService) BuildRequestUrl() (string, error) {
-	if srv.ApiId == "" {
-		return "", fmt.Errorf("set invalid ApiId parameter.")
+// BuildRequestURLは商品検索APIにリクエストするためのURLを作成します。
+func (srv *ProductService) BuildRequestURL() (string, error) {
+	if srv.ApiID == "" {
+		return "", fmt.Errorf("set invalid ApiID parameter")
 	}
-	if !ValidateAffiliateId(srv.AffiliateId) {
-		return "", fmt.Errorf("set invalid AffiliateId parameter.")
+	if !ValidateAffiliateID(srv.AffiliateID) {
+		return "", fmt.Errorf("set invalid AffiliateID parameter")
 	}
 
 	if !ValidateSite(srv.Site) {
-		return "", fmt.Errorf("set invalid Site parameter.")
+		return "", fmt.Errorf("set invalid Site parameter")
 	}
 
 	queries := url.Values{}
-	queries.Set("api_id", srv.ApiId)
-	queries.Set("affiliate_id", srv.AffiliateId)
+	queries.Set("api_id", srv.ApiID)
+	queries.Set("affiliate_id", srv.AffiliateID)
 	queries.Set("site", srv.Site)
 
 	if srv.Length != 0 {
@@ -348,11 +347,11 @@ func (srv *ProductService) BuildRequestUrl() (string, error) {
 	if srv.Article != "" {
 		queries.Set("article", srv.Article)
 	}
-	if srv.ArticleId != "" {
-		queries.Set("article_id", srv.ArticleId)
+	if srv.ArticleID != "" {
+		queries.Set("article_id", srv.ArticleID)
 	}
 	if srv.Stock != "" {
 		queries.Set("mono_stock", srv.Stock)
 	}
-	return API_BASE_URL + "/ItemList?" + queries.Encode(), nil
+	return APIBaseURL + "/ItemList?" + queries.Encode(), nil
 }

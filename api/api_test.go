@@ -3,17 +3,16 @@ package api
 import (
 	"reflect"
 	"testing"
-	// "github.com/davecgh/go-spew/spew"
 )
 
 const (
-	Dummy_Affliate_Id = "foobar-999"
-	Dummy_Api_Id      = "TXpEZ5D4T2xB3J5cuSLf"
+	DummyAffliateID = "foobar-999"
+	DummyAPIID      = "TXpEZ5D4T2xB3J5cuSLf"
 )
 
-func TestRequestJson(t *testing.T) {
-	testUrl := "https://httpbin.org/get?foo=bar"
-	actual, err1 := RequestJson(testUrl)
+func TestRequestJSON(t *testing.T) {
+	testURL := "https://httpbin.org/get?foo=bar"
+	actual, err1 := RequestJSON(testURL)
 
 	if actual == nil {
 		t.Fatalf("response is not expected empty.")
@@ -27,47 +26,47 @@ func TestRequestJson(t *testing.T) {
 		t.Fatalf("response is expected inteface{}. but actual %s", reflect.TypeOf(actual).String())
 	}
 
-	errUrl := "https://httpbin.org/status/500"
-	_, err2 := RequestJson(errUrl)
+	errURL := "https://httpbin.org/status/500"
+	_, err2 := RequestJSON(errURL)
 
 	if err2 == nil {
 		t.Fatalf("error is not expected empty.")
 	}
 }
 
-func TestValidateAffiliateId(t *testing.T) {
+func TestValidateAffiliateID(t *testing.T) {
 	val := "vcder56yuhnmkiuy-990"
-	if !ValidateAffiliateId(val) {
+	if !ValidateAffiliateID(val) {
 		t.Fatalf("When value is %s, not expected false.", val)
 	}
 
 	val = "vcder56yuhnmkiuy-9"
-	if ValidateAffiliateId(val) {
+	if ValidateAffiliateID(val) {
 		t.Fatalf("When value is %s, not expected true.", val)
 	}
 
 	val = "vcder56yuhnmkiuy-"
-	if ValidateAffiliateId(val) {
+	if ValidateAffiliateID(val) {
 		t.Fatalf("When value is %s, not expected true.", val)
 	}
 
 	val = "-999"
-	if ValidateAffiliateId(val) {
+	if ValidateAffiliateID(val) {
 		t.Fatalf("When value is %s, not expected true.", val)
 	}
 
-	if ValidateAffiliateId("") {
+	if ValidateAffiliateID("") {
 		t.Fatalf("When value is empty, not expected true.")
 	}
 }
 
 func TestValidateSite(t *testing.T) {
-	if !ValidateSite(SITE_ALLAGES) {
-		t.Fatalf("When value is %s, not expected false.", SITE_ALLAGES)
+	if !ValidateSite(SiteGeneral) {
+		t.Fatalf("When value is %s, not expected false.", SiteGeneral)
 	}
 
-	if !ValidateSite(SITE_ADULT) {
-		t.Fatalf("When value is %s, not expected false.", SITE_ADULT)
+	if !ValidateSite(SiteAdult) {
+		t.Fatalf("When value is %s, not expected false.", SiteAdult)
 	}
 
 	if !ValidateSite("DMM.com") {
@@ -130,39 +129,39 @@ func TestValidateRange(t *testing.T) {
 	min = 1
 	max = 100
 	if !ValidateRange(target, min, max) {
-		t.Fatalf("When target value is %d, min is %d and max is %d, not expected false.", target, min, max)
+		t.Fatalf("When target value is %d, min is %d and max is %d, not expected false", target, min, max)
 	}
 
 	target = 1
 	if !ValidateRange(target, min, max) {
-		t.Fatalf("When target value is %d, min is %d and max is %d, not expected false.", target, min, max)
+		t.Fatalf("When target value is %d, min is %d and max is %d, not expected false", target, min, max)
 	}
 
 	target = 100
 	if !ValidateRange(target, min, max) {
-		t.Fatalf("When target value is %d, min is %d and max is %d, not expected false.", target, min, max)
+		t.Fatalf("When target value is %d, min is %d and max is %d, not expected false", target, min, max)
 	}
 
 	target = 0
 	if ValidateRange(target, min, max) {
-		t.Fatalf("When target value is %d, min is %d and max is %d, not expected true.", target, min, max)
+		t.Fatalf("When target value is %d, min is %d and max is %d, not expected true", target, min, max)
 	}
 
 	target = 101
 	if ValidateRange(target, min, max) {
-		t.Fatalf("When target value is %d, min is %d and max is %d, not expected true.", target, min, max)
+		t.Fatalf("When target value is %d, min is %d and max is %d, not expected true", target, min, max)
 	}
 
 	target = 10
 	min = 10
 	max = 10
 	if !ValidateRange(target, min, max) {
-		t.Fatalf("When target value is %d, min is %d and max is %d, not expected false.", target, min, max)
+		t.Fatalf("When target value is %d, min is %d and max is %d, not expected false", target, min, max)
 	}
 }
 
-func TestGetApiVersion(t *testing.T) {
-	if GetApiVersion() != API_VERSION {
-		t.Errorf("This value is expected to equal API_VERSION. actual:%s", GetApiVersion())
+func TestGetAPIVersion(t *testing.T) {
+	if GetAPIVersion() != APIVersion {
+		t.Errorf("This value is expected to equal APIVersion. actual:%s", GetAPIVersion())
 	}
 }

@@ -8,13 +8,15 @@ import (
 )
 
 const (
-	DEFAULT_ACTRESS_API_LENGTH = 20
-	DEFAULT_ACTRESS_MAX_LENGTH = 100
+	// DefaultActressAPILength is Default length for a Actress API request
+	DefaultActressAPILength = 20
+	// DefaultActressMaxLength is MAX length for a Actress API request
+	DefaultActressMaxLength = 100
 )
 
 type ActressService struct {
-	ApiId       string `mapstructure:"api_id"`
-	AffiliateId string `mapstructure:"affiliate_id"`
+	ApiID       string `mapstructure:"api_id"`
+	AffiliateID string `mapstructure:"affiliate_id"`
 	Length      int64  `mapstructure:"hits"`
 	Offset      int64  `mapstructure:"offset"`
 	Sort        string `mapstructure:"sort"`
@@ -40,7 +42,7 @@ type ActressResponse struct {
 }
 
 type Actress struct {
-	Id          string             `mapstructure:"id"`
+	ID          string             `mapstructure:"id"`
 	Name        string             `mapstructure:"name"`
 	Ruby        string             `mapstructure:"ruby"`
 	Bust        string             `mapstructure:"bust"`
@@ -48,7 +50,7 @@ type Actress struct {
 	Hip         string             `mapstructure:"hip"`
 	Height      string             `mapstructure:"height"`
 	Birthday    string             `mapstructure:"birthday"`
-	Blood_type  string             `mapstructure:"blood_type"`
+	BloodType   string             `mapstructure:"blood_type"`
 	Hobby       string             `mapstructure:"hobby"`
 	Prefectures string             `mapstructure:"prefectures"`
 	ListURL     ActressProductList `mapstructure:"listURL"`
@@ -65,12 +67,12 @@ type ActressProductList struct {
 // NewActressService returns a new service for the given affiliate ID and API ID.
 //
 // NewActressServiceは渡したアフィリエイトIDとAPI IDを使用して新しい serviceを返します。
-func NewActressService(affiliateId, apiId string) *ActressService {
+func NewActressService(affiliateID, apiID string) *ActressService {
 	return &ActressService{
-		ApiId:       apiId,
-		AffiliateId: affiliateId,
-		Length:      DEFAULT_ACTRESS_API_LENGTH,
-		Offset:      DEFAULT_API_OFFSET,
+		ApiID:       apiID,
+		AffiliateID: affiliateID,
+		Length:      DefaultActressAPILength,
+		Offset:      DefaultAPIOffset,
 		Sort:        "",
 		Initial:     "",
 		Keyword:     "",
@@ -82,10 +84,10 @@ func NewActressService(affiliateId, apiId string) *ActressService {
 	}
 }
 
-// Execute requests a url is created by BuildRequestUrl.
+// Execute requests a url is created by BuildRequestURL.
 // Use ExecuteWeak If you want get this response in interface{}.
 //
-// BuildRequestUrlで生成したURLにリクエストします。
+// BuildRequestURLで生成したURLにリクエストします。
 // もし interface{} でこのレスポンスを取得したい場合は ExecuteWeak を使用してください。
 func (srv *ActressService) Execute() (*ActressResponse, error) {
 	result, err := srv.ExecuteWeak()
@@ -99,16 +101,16 @@ func (srv *ActressService) Execute() (*ActressResponse, error) {
 	return &raw.Result, nil
 }
 
-// ExecuteWeak requests a url is created by BuildRequestUrl.
+// ExecuteWeak requests a url is created by BuildRequestURL.
 //
-// BuildRequestUrlで生成したURLにリクエストします。
+// BuildRequestURLで生成したURLにリクエストします。
 func (srv *ActressService) ExecuteWeak() (interface{}, error) {
-	reqUrl, err := srv.BuildRequestUrl()
+	reqURL, err := srv.BuildRequestURL()
 	if err != nil {
 		return nil, err
 	}
 
-	return RequestJson(reqUrl)
+	return RequestJSON(reqURL)
 }
 
 // SetLength set the specified argument to ProductService.Length
@@ -136,7 +138,7 @@ func (srv *ActressService) SetOffset(offset int64) *ActressService {
 	return srv
 }
 
-// SetKeyword set the specified argument to ProductService.Keyword
+// SetKeyword set the specified argument to ActressService.Keyword
 //
 // SetKeywordはKeywordパラメータを設定します。
 func (srv *ActressService) SetKeyword(keyword string) *ActressService {
@@ -144,9 +146,9 @@ func (srv *ActressService) SetKeyword(keyword string) *ActressService {
 	return srv
 }
 
-// SetOffset set the specified argument to ProductService.Offset
+// SetSort set the specified argument to ActressService.Sort
 //
-// SetOffsetはOffsetパラメータを設定します。
+// SetSortはsortパラメータを設定します。
 func (srv *ActressService) SetSort(sort string) *ActressService {
 	srv.Sort = TrimString(sort)
 	return srv
@@ -162,7 +164,7 @@ func (srv *ActressService) SetInitial(initial string) *ActressService {
 	return srv
 }
 
-// SetInitial sets the specified argument to ActressService.Birthday.
+// SetBirthday sets the specified argument to ActressService.Birthday.
 //  format YYYYMMDD
 //  e.g. 1999/01/01 -> 19990101
 //
@@ -210,7 +212,7 @@ func (srv *ActressService) SetHeight(height string) *ActressService {
 // ValidateLengthはProductService.Lengthが範囲内(1 <= value <= DEFAULT_ACTRESS_MAX_LENGTH)にあるか検証します。
 // 検証範囲について更に詳しく知りたい方はValidateRangeを参照してください。
 func (srv *ActressService) ValidateLength() bool {
-	return ValidateRange(srv.Length, 1, DEFAULT_ACTRESS_MAX_LENGTH)
+	return ValidateRange(srv.Length, 1, DefaultActressMaxLength)
 }
 
 // ValidateOffset validates ActressService.Offset within the range (1 <= value).
@@ -220,21 +222,21 @@ func (srv *ActressService) ValidateOffset() bool {
 	return srv.Offset >= 1
 }
 
-// BuildRequestUrl creates url to request actress API.
+// BuildRequestURL creates url to request actress API.
 //
-// BuildRequestUrlは女優検索APIにリクエストするためのURLを作成します。
-func (srv *ActressService) BuildRequestUrl() (string, error) {
-	if srv.ApiId == "" {
-		return "", fmt.Errorf("set invalid ApiId parameter.")
+// BuildRequestURLは女優検索APIにリクエストするためのURLを作成します。
+func (srv *ActressService) BuildRequestURL() (string, error) {
+	if srv.ApiID == "" {
+		return "", fmt.Errorf("set invalid ApiID parameter")
 	}
 
-	if !ValidateAffiliateId(srv.AffiliateId) {
-		return "", fmt.Errorf("set invalid AffiliateId parameter.")
+	if !ValidateAffiliateID(srv.AffiliateID) {
+		return "", fmt.Errorf("set invalid AffiliateID parameter")
 	}
 
 	queries := url.Values{}
-	queries.Set("api_id", srv.ApiId)
-	queries.Set("affiliate_id", srv.AffiliateId)
+	queries.Set("api_id", srv.ApiID)
+	queries.Set("affiliate_id", srv.AffiliateID)
 
 	if srv.Length != 0 {
 		if !srv.ValidateLength() {
@@ -275,5 +277,5 @@ func (srv *ActressService) BuildRequestUrl() (string, error) {
 		queries.Set("height", srv.Height)
 	}
 
-	return API_BASE_URL + "/ActressSearch?" + queries.Encode(), nil
+	return APIBaseURL + "/ActressSearch?" + queries.Encode(), nil
 }

@@ -7,16 +7,16 @@ import (
 )
 
 func TestNewProductService(t *testing.T) {
-	affiliate_id := Dummy_Affliate_Id
-	api_id := Dummy_Api_Id
+	affiliateID := DummyAffliateID
+	apiID := DummyAPIID
 
-	srv := NewProductService(affiliate_id, api_id)
-	if srv.AffiliateId != affiliate_id {
-		t.Fatalf("ProductService.AffiliateId is expected to equal the input value(affiliate_id)")
+	srv := NewProductService(affiliateID, apiID)
+	if srv.AffiliateID != affiliateID {
+		t.Fatalf("ProductService.AffiliateID is expected to equal the input value(affiliateID)")
 	}
 
-	if srv.ApiId != api_id {
-		t.Fatalf("ProductService.ApiId is expected to equal the input value(api_id)")
+	if srv.ApiID != apiID {
+		t.Fatalf("ProductService.ApiID is expected to equal the input value(apiID)")
 	}
 }
 
@@ -72,16 +72,16 @@ func TestSetKeywordInProductService(t *testing.T) {
 	}
 
 	keyword4 := " a b c d 0 "
-	keyword4_expected := "a b c d 0"
+	keyword4Expected := "a b c d 0"
 	srv.SetKeyword(keyword4)
-	if srv.Keyword != keyword4_expected {
+	if srv.Keyword != keyword4Expected {
 		t.Fatalf("ProductService.Keyword is expected to equal keyword4_expected")
 	}
 
 	keyword5 := "　あ ア　化Ａ "
-	keyword5_expected := "あ ア　化Ａ"
+	keyword5Expected := "あ ア　化Ａ"
 	srv.SetKeyword(keyword5)
-	if srv.Keyword != keyword5_expected {
+	if srv.Keyword != keyword5Expected {
 		t.Fatalf("ProductService.Keyword is expected to equal keyword5_expected")
 	}
 }
@@ -91,13 +91,13 @@ func TestSetSiteInProductService(t *testing.T) {
 
 	var site string
 
-	site = SITE_ALLAGES
+	site = SiteGeneral
 	srv.SetSite(site)
 	if srv.Site != site {
 		t.Fatalf("ProductService.Site is expected to equal the input value. value:%s", site)
 	}
 
-	site = SITE_ADULT
+	site = SiteAdult
 	srv.SetSite(site)
 	if srv.Site != site {
 		t.Fatalf("ProductService.Site is expected to equal the input value. value:%s", site)
@@ -135,19 +135,19 @@ func TestValidateLengthInProductService(t *testing.T) {
 		t.Fatalf("ProductService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_PRODUCT_API_LENGTH
+	target = DefaultProductAPILength
 	srv.SetLength(target)
 	if srv.ValidateLength() == false {
 		t.Fatalf("ProductService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_PRODUCT_MAX_LENGTH
+	target = DefaultProductMaxLength
 	srv.SetLength(target)
 	if srv.ValidateLength() == false {
 		t.Fatalf("ProductService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_PRODUCT_MAX_LENGTH + 1
+	target = DefaultProductMaxLength + 1
 	srv.SetLength(target)
 	if srv.ValidateLength() == true {
 		t.Fatalf("ProductService.ValidateLength is expected FALSE.")
@@ -177,13 +177,13 @@ func TestValidateOffsetInProductService(t *testing.T) {
 		t.Fatalf("ProductService.ValidateOffset is expected TRUE. target:%d", target)
 	}
 
-	target = DEFAULT_PRODUCT_MAX_OFFSET
+	target = DefaultProductMaxOffset
 	srv.SetOffset(target)
 	if srv.ValidateOffset() == false {
 		t.Fatalf("ProductService.ValidateOffset is expected TRUE. target:%d", target)
 	}
 
-	target = DEFAULT_PRODUCT_MAX_OFFSET + 1
+	target = DefaultProductMaxOffset + 1
 	srv.SetOffset(target)
 	if srv.ValidateOffset() == true {
 		t.Fatalf("ProductService.ValidateOffset is expected FALSE. target:%d", target)
@@ -202,170 +202,170 @@ func TestValidateOffsetInProductService(t *testing.T) {
 	}
 }
 
-func TestBuildRequestUrlInProductService(t *testing.T) {
+func TestBuildRequestURLInProductService(t *testing.T) {
 	var srv *ProductService
 	var u string
 	var err error
 	var expected string
 
 	srv = dummyProductService()
-	srv.SetSite(SITE_ADULT)
-	u, err = srv.BuildRequestUrl()
-	expected = API_BASE_URL + "/ItemList?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id + "&hits=" + strconv.FormatInt(DEFAULT_ACTRESS_API_LENGTH, 10) + "&offset=" + strconv.FormatInt(DEFAULT_API_OFFSET, 10) + "&site=" + SITE_ADULT
+	srv.SetSite(SiteAdult)
+	u, err = srv.BuildRequestURL()
+	expected = APIBaseURL + "/ItemList?affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID + "&hits=" + strconv.FormatInt(DefaultProductAPILength, 10) + "&offset=" + strconv.FormatInt(DefaultAPIOffset, 10) + "&site=" + SiteAdult
 	if u != expected {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ProductService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ProductService.BuildRequestURL is not expected to have error")
 	}
 
 	srv = dummyProductService()
-	srv.SetSite(SITE_ADULT)
+	srv.SetSite(SiteAdult)
 	srv.SetLength(0)
 	srv.SetOffset(0)
-	u, err = srv.BuildRequestUrl()
-	expected = API_BASE_URL + "/ItemList?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id
-	expected_base := expected
-	expected = expected_base + "&site=" + SITE_ADULT
+	u, err = srv.BuildRequestURL()
+	expected = APIBaseURL + "/ItemList?affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID
+	expectedBase := expected
+	expected = expectedBase + "&site=" + SiteAdult
 	if u != expected {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ProductService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ProductService.BuildRequestURL is not expected to have error")
 	}
 
 	srv.SetSite("")
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("ProductService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("ProductService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("ProductService.BuildRequestURL is expected to return error.")
 	}
-	srv.SetSite(SITE_ADULT)
+	srv.SetSite(SiteAdult)
 
 	srv.SetLength(-1)
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("ProductService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("ProductService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("ProductService.BuildRequestURL is expected to return error.")
 	}
 	srv.SetLength(0)
 
 	srv.SetOffset(-1)
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("ProductService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("ProductService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("ProductService.BuildRequestURL is expected to return error.")
 	}
 	srv.SetOffset(0)
 
 	srv.SetSort("rank")
-	expected = expected_base + "&site=" + SITE_ADULT + "&sort=rank"
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&site=" + SiteAdult + "&sort=rank"
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetSort("")
 
 	srv.SetKeyword("上原亜衣")
-	expected = expected_base + "&keyword=" + url.QueryEscape("上原亜衣") + "&site=" + SITE_ADULT
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&keyword=" + url.QueryEscape("上原亜衣") + "&site=" + SiteAdult
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ProductService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ProductService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetKeyword("")
 
 	srv.SetService("digital")
-	expected = expected_base + "&service=" + url.QueryEscape("digital") + "&site=" + SITE_ADULT
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&service=" + url.QueryEscape("digital") + "&site=" + SiteAdult
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ProductService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ProductService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetService("")
 
 	srv.SetFloor("videoa")
-	expected = expected_base + "&floor=" + url.QueryEscape("videoa") + "&site=" + SITE_ADULT
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&floor=" + url.QueryEscape("videoa") + "&site=" + SiteAdult
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ProductService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ProductService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetFloor("")
 
 	srv.SetArticle("actress")
-	expected = expected_base + "&article=" + url.QueryEscape("actress") + "&site=" + SITE_ADULT
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&article=" + url.QueryEscape("actress") + "&site=" + SiteAdult
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ProductService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ProductService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetArticle("")
 
-	srv.SetArticleId("1011199")
-	expected = expected_base + "&article_id=" + url.QueryEscape("1011199") + "&site=" + SITE_ADULT
-	u, err = srv.BuildRequestUrl()
+	srv.SetArticleID("1011199")
+	expected = expectedBase + "&article_id=" + url.QueryEscape("1011199") + "&site=" + SiteAdult
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ProductService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ProductService.BuildRequestURL is not expected to have error")
 	}
-	srv.SetArticleId("")
+	srv.SetArticleID("")
 
 	srv.SetStock("mono")
-	expected = expected_base + "&mono_stock=" + url.QueryEscape("mono") + "&site=" + SITE_ADULT
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&mono_stock=" + url.QueryEscape("mono") + "&site=" + SiteAdult
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ProductService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ProductService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ProductService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetStock("")
 }
 
-func TestBuildRequestUrlWithoutApiIdInInProductService(t *testing.T) {
+func TestBuildRequestURLWithoutApiIDInInProductService(t *testing.T) {
 	srv := dummyProductService()
-	srv.ApiId = ""
-	u, err := srv.BuildRequestUrl()
+	srv.ApiID = ""
+	u, err := srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("ProductService.BuildRequestUrl is expected empty if API ID is not set.")
+		t.Fatalf("ProductService.BuildRequestURL is expected empty if API ID is not set.")
 	}
 	if err == nil {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("ProductService.BuildRequestURL is expected to return error.")
 	}
 }
 
-func TestBuildRequestUrlWithWrongAffiliateIdInProductService(t *testing.T) {
+func TestBuildRequestURLWithWrongAffiliateIDInProductService(t *testing.T) {
 	srv := dummyProductService()
-	srv.AffiliateId = "fizzbizz-100"
-	u, err := srv.BuildRequestUrl()
+	srv.AffiliateID = "fizzbizz-100"
+	u, err := srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("ProductService.BuildRequestUrl is expected empty if wrong Affiliate ID is set.")
+		t.Fatalf("ProductService.BuildRequestURL is expected empty if wrong Affiliate ID is set.")
 	}
 	if err == nil {
-		t.Fatalf("ProductService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("ProductService.BuildRequestURL is expected to return error.")
 	}
 }
 
 func dummyProductService() *ProductService {
-	return NewProductService(Dummy_Affliate_Id, Dummy_Api_Id)
+	return NewProductService(DummyAffliateID, DummyAPIID)
 }

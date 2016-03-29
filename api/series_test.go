@@ -7,16 +7,16 @@ import (
 )
 
 func TestNewSeriesService(t *testing.T) {
-	affiliate_id := Dummy_Affliate_Id
-	api_id := Dummy_Api_Id
+	affiliateID := DummyAffliateID
+	apiID := DummyAPIID
 
-	srv := NewSeriesService(affiliate_id, api_id)
-	if srv.AffiliateId != affiliate_id {
-		t.Fatalf("SeriesService.AffiliateId is expected to equal the input value(affiliate_id)")
+	srv := NewSeriesService(affiliateID, apiID)
+	if srv.AffiliateID != affiliateID {
+		t.Fatalf("SeriesService.AffiliateID is expected to equal the input value(affiliateID)")
 	}
 
-	if srv.ApiId != api_id {
-		t.Fatalf("SeriesService.ApiId is expected to equal the input value(api_id)")
+	if srv.ApiID != apiID {
+		t.Fatalf("SeriesService.ApiID is expected to equal the input value(apiID)")
 	}
 }
 
@@ -61,19 +61,19 @@ func TestValidateLengthInSeriesService(t *testing.T) {
 		t.Fatalf("SeriesService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_API_LENGTH
+	target = DefaultAPILength
 	srv.SetLength(target)
 	if srv.ValidateLength() == false {
 		t.Fatalf("SeriesService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_MAX_LENGTH
+	target = DefaultMaxLength
 	srv.SetLength(target)
 	if srv.ValidateLength() == false {
 		t.Fatalf("SeriesService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_MAX_LENGTH + 1
+	target = DefaultMaxLength + 1
 	srv.SetLength(target)
 	if srv.ValidateLength() == true {
 		t.Fatalf("SeriesService.ValidateLength is expected FALSE.")
@@ -122,103 +122,103 @@ func TestValidateOffsetInSeriesService(t *testing.T) {
 	}
 }
 
-func TestBuildRequestUrlInSeriesService(t *testing.T) {
+func TestBuildRequestURLInSeriesService(t *testing.T) {
 	var srv *SeriesService
 	var u string
 	var err error
 	var expected string
 
 	srv = dummySeriesService()
-	srv.SetFloorId("40")
-	u, err = srv.BuildRequestUrl()
-	expected = API_BASE_URL + "/SeriesSearch?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id + "&floor_id=40" + "&hits=" + strconv.FormatInt(DEFAULT_API_LENGTH, 10) + "&offset=" + strconv.FormatInt(DEFAULT_API_OFFSET, 10)
+	srv.SetFloorID("40")
+	u, err = srv.BuildRequestURL()
+	expected = APIBaseURL + "/SeriesSearch?affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID + "&floor_id=40" + "&hits=" + strconv.FormatInt(DefaultAPILength, 10) + "&offset=" + strconv.FormatInt(DefaultAPIOffset, 10)
 	if u != expected {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("SeriesService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("SeriesService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("SeriesService.BuildRequestURL is not expected to have error")
 	}
 
 	srv = dummySeriesService()
 	srv.SetLength(0)
 	srv.SetOffset(0)
-	srv.SetFloorId("40")
-	u, err = srv.BuildRequestUrl()
-	expected = API_BASE_URL + "/SeriesSearch?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id + "&floor_id=40"
-	expected_base := expected
+	srv.SetFloorID("40")
+	u, err = srv.BuildRequestURL()
+	expected = APIBaseURL + "/SeriesSearch?affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID + "&floor_id=40"
+	expectedBase := expected
 	if u != expected {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("SeriesService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("SeriesService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("SeriesService.BuildRequestURL is not expected to have error")
 	}
 
 	srv.SetLength(-1)
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("SeriesService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("SeriesService.BuildRequestURL is expected to return error.")
 	}
 	srv.SetLength(0)
 
 	srv.SetOffset(-1)
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("SeriesService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("SeriesService.BuildRequestURL is expected to return error.")
 	}
 	srv.SetOffset(0)
 
-	srv.SetFloorId("")
-	u, err = srv.BuildRequestUrl()
+	srv.SetFloorID("")
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("SeriesService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("SeriesService.BuildRequestURL is expected to return error.")
 	}
-	srv.SetFloorId("40")
+	srv.SetFloorID("40")
 
 	srv.SetInitial("あ")
-	expected = expected_base + "&initial=" + url.QueryEscape("あ")
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&initial=" + url.QueryEscape("あ")
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("SeriesService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("SeriesService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("SeriesService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetInitial("")
 }
 
-func TestBuildRequestUrlWithoutApiIdInSeriesService(t *testing.T) {
+func TestBuildRequestURLWithoutApiIDInSeriesService(t *testing.T) {
 	srv := dummySeriesService()
-	srv.ApiId = ""
-	u, err := srv.BuildRequestUrl()
+	srv.ApiID = ""
+	u, err := srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected empty if API ID is not set.")
+		t.Fatalf("SeriesService.BuildRequestURL is expected empty if API ID is not set.")
 	}
 	if err == nil {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("SeriesService.BuildRequestURL is expected to return error.")
 	}
 }
 
-func TestBuildRequestUrlWithWrongAffiliateIdInSeriesService(t *testing.T) {
+func TestBuildRequestURLWithWrongAffiliateIDInSeriesService(t *testing.T) {
 	srv := dummySeriesService()
-	srv.AffiliateId = "fizzbizz-100"
-	u, err := srv.BuildRequestUrl()
+	srv.AffiliateID = "fizzbizz-100"
+	u, err := srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected empty if wrong Affiliate ID is set.")
+		t.Fatalf("SeriesService.BuildRequestURL is expected empty if wrong Affiliate ID is set.")
 	}
 	if err == nil {
-		t.Fatalf("SeriesService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("SeriesService.BuildRequestURL is expected to return error.")
 	}
 }
 
 func dummySeriesService() *SeriesService {
-	return NewSeriesService(Dummy_Affliate_Id, Dummy_Api_Id)
+	return NewSeriesService(DummyAffliateID, DummyAPIID)
 }

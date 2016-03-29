@@ -8,9 +8,9 @@ import (
 )
 
 type SeriesService struct {
-	ApiId       string `mapstructure:"api_id"`
-	AffiliateId string `mapstructure:"affiliate_id"`
-	FloorId     string `mapstructure:"floor_id"`
+	ApiID       string `mapstructure:"api_id"`
+	AffiliateID string `mapstructure:"affiliate_id"`
+	FloorID     string `mapstructure:"floor_id"`
 	Initial     string `mapstructure:"initial"`
 	Length      int64  `mapstructure:"hits"`
 	Offset      int64  `mapstructure:"offset"`
@@ -29,14 +29,14 @@ type SeriesResponse struct {
 	SiteCode      string   `mapstructure:"site_code"`
 	ServiceName   string   `mapstructure:"service_name"`
 	ServiceCode   string   `mapstructure:"service_code"`
-	FloorId       string   `mapstructure:"floor_id"`
+	FloorID       string   `mapstructure:"floor_id"`
 	FloorName     string   `mapstructure:"floor_name"`
 	FloorCode     string   `mapstructure:"floor_code"`
 	SeriesList    []Series `mapstructure:"series"`
 }
 
 type Series struct {
-	SeriesId string `mapstructure:"series_id"`
+	SeriesID string `mapstructure:"series_id"`
 	Name     string `mapstructure:"name"`
 	Ruby     string `mapstructure:"ruby"`
 	ListURL  string `mapstructure:"list_url"`
@@ -45,21 +45,21 @@ type Series struct {
 // NewSeriesService returns a new service for the given affiliate ID and API ID.
 //
 // NewSeriesServiceは渡したアフィリエイトIDとAPI IDを使用して新しい serviceを返します。
-func NewSeriesService(affiliateId, apiId string) *SeriesService {
+func NewSeriesService(affiliateID, apiID string) *SeriesService {
 	return &SeriesService{
-		ApiId:       apiId,
-		AffiliateId: affiliateId,
-		FloorId:     "",
+		ApiID:       apiID,
+		AffiliateID: affiliateID,
+		FloorID:     "",
 		Initial:     "",
-		Length:      DEFAULT_API_LENGTH,
-		Offset:      DEFAULT_API_OFFSET,
+		Length:      DefaultAPILength,
+		Offset:      DefaultAPIOffset,
 	}
 }
 
-// Execute requests a url is created by BuildRequestUrl.
+// Execute requests a url is created by BuildRequestURL.
 // Use ExecuteWeak If you want get this response in interface{}.
 //
-// BuildRequestUrlで生成したURLにリクエストします。
+// BuildRequestURLで生成したURLにリクエストします。
 // もし interface{} でこのレスポンスを取得したい場合は ExecuteWeak を使用してください。
 func (srv *SeriesService) Execute() (*SeriesResponse, error) {
 	result, err := srv.ExecuteWeak()
@@ -73,16 +73,16 @@ func (srv *SeriesService) Execute() (*SeriesResponse, error) {
 	return &raw.Result, nil
 }
 
-// ExecuteWeak requests a url is created by BuildRequestUrl.
+// ExecuteWeak requests a url is created by BuildRequestURL.
 //
-// BuildRequestUrlで生成したURLにリクエストします。
+// BuildRequestURLで生成したURLにリクエストします。
 func (srv *SeriesService) ExecuteWeak() (interface{}, error) {
-	reqUrl, err := srv.BuildRequestUrl()
+	reqURL, err := srv.BuildRequestURL()
 	if err != nil {
 		return nil, err
 	}
 
-	return RequestJson(reqUrl)
+	return RequestJSON(reqURL)
 }
 
 // SetLength set the specified argument to SeriesService.Length
@@ -120,23 +120,23 @@ func (srv *SeriesService) SetInitial(initial string) *SeriesService {
 	return srv
 }
 
-// SetFloorId sets the specified argument to SeriesService.FloorId.
+// SetFloorID sets the specified argument to SeriesService.FloorID.
 // You can retrieve Floor IDs from floor API.
 //
-// SetFloorIdはFloorIdパラメータを設定します。
+// SetFloorIDはFloorIDパラメータを設定します。
 // フロアIDはフロアAPIから取得できます。
-func (srv *SeriesService) SetFloorId(floor_id string) *SeriesService {
-	srv.FloorId = TrimString(floor_id)
+func (srv *SeriesService) SetFloorID(floorID string) *SeriesService {
+	srv.FloorID = TrimString(floorID)
 	return srv
 }
 
-// ValidateLength validates SeriesService.Length within the range (1 <= value <= DEFAULT_MAX_LENGTH).
+// ValidateLength validates SeriesService.Length within the range (1 <= value <= DefaultMaxLength).
 // Refer to ValidateRange for more information about the range to validate.
 //
-// ValidateLengthはSeriesService.Lengthが範囲内(1 <= value <= DEFAULT_MAX_LENGTH)にあるか検証します。
+// ValidateLengthはSeriesService.Lengthが範囲内(1 <= value <= DefaultMaxLength)にあるか検証します。
 // 検証範囲について更に詳しく知りたい方はValidateRangeを参照してください。
 func (srv *SeriesService) ValidateLength() bool {
-	return ValidateRange(srv.Length, 1, DEFAULT_MAX_LENGTH)
+	return ValidateRange(srv.Length, 1, DefaultMaxLength)
 }
 
 // ValidateOffset validates SeriesService.Offset within the range (1 <= value).
@@ -146,24 +146,24 @@ func (srv *SeriesService) ValidateOffset() bool {
 	return srv.Offset >= 1
 }
 
-// BuildRequestUrl creates url to request series API.
+// BuildRequestURL creates url to request series API.
 //
-// BuildRequestUrlはシリーズ検索APIにリクエストするためのURLを作成します。
-func (srv *SeriesService) BuildRequestUrl() (string, error) {
-	if srv.ApiId == "" {
-		return "", fmt.Errorf("set invalid ApiId parameter.")
+// BuildRequestURLはシリーズ検索APIにリクエストするためのURLを作成します。
+func (srv *SeriesService) BuildRequestURL() (string, error) {
+	if srv.ApiID == "" {
+		return "", fmt.Errorf("set invalid ApiID parameter")
 	}
-	if !ValidateAffiliateId(srv.AffiliateId) {
-		return "", fmt.Errorf("set invalid AffiliateId parameter.")
+	if !ValidateAffiliateID(srv.AffiliateID) {
+		return "", fmt.Errorf("set invalid AffiliateID parameter")
 	}
-	if srv.FloorId == "" {
-		return "", fmt.Errorf("set invalid FloorId parameter.")
+	if srv.FloorID == "" {
+		return "", fmt.Errorf("set invalid FloorID parameter")
 	}
 
 	queries := url.Values{}
-	queries.Set("api_id", srv.ApiId)
-	queries.Set("affiliate_id", srv.AffiliateId)
-	queries.Set("floor_id", srv.FloorId)
+	queries.Set("api_id", srv.ApiID)
+	queries.Set("affiliate_id", srv.AffiliateID)
+	queries.Set("floor_id", srv.FloorID)
 
 	if srv.Length != 0 {
 		if !srv.ValidateLength() {
@@ -182,5 +182,5 @@ func (srv *SeriesService) BuildRequestUrl() (string, error) {
 	if srv.Initial != "" {
 		queries.Set("initial", srv.Initial)
 	}
-	return API_BASE_URL + "/SeriesSearch?" + queries.Encode(), nil
+	return APIBaseURL + "/SeriesSearch?" + queries.Encode(), nil
 }

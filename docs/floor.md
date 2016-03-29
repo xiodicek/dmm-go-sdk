@@ -38,6 +38,6 @@ APIのパラメータとSDKのパラメータの関連について
 
 | 論理名 | API (物理名) | 必須 | SDK | データ型 |
 |---|---|:---:|---|---|
-| API ID | api_id | ◯ | ApiId | string |
+| API ID | api_id | ◯ | ApiID | string |
 | アフィリエイトID | affiliate_id | ◯ | AffiliateId | string |
 

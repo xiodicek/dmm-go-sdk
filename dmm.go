@@ -4,9 +4,12 @@ import (
 	"github.com/DMMcomLabo/dmm-go-sdk/api"
 )
 
+// Client for DMM services
+//
+// DMMサービス接続のためのClient
 type Client struct {
-	AffiliateId string
-	ApiId       string
+	AffiliateID string
+	ApiID       string
 
 	// services
 	Actress *api.ActressService
@@ -18,17 +21,20 @@ type Client struct {
 	Series  *api.SeriesService
 }
 
-func New(affiliate_id, api_id string) *Client {
+// New creates client
+//
+// Clientの新規作成
+func New(affiliateID, apiID string) *Client {
 	c := &Client{
-		ApiId:       api_id,
-		AffiliateId: affiliate_id,
+		ApiID:       apiID,
+		AffiliateID: affiliateID,
 	}
-	c.Actress = api.NewActressService(affiliate_id, api_id)
-	c.Author = api.NewAuthorService(affiliate_id, api_id)
-	c.Floor = api.NewFloorService(affiliate_id, api_id)
-	c.Genre = api.NewGenreService(affiliate_id, api_id)
-	c.Maker = api.NewMakerService(affiliate_id, api_id)
-	c.Product = api.NewProductService(affiliate_id, api_id)
-	c.Series = api.NewSeriesService(affiliate_id, api_id)
+	c.Actress = api.NewActressService(affiliateID, apiID)
+	c.Author = api.NewAuthorService(affiliateID, apiID)
+	c.Floor = api.NewFloorService(affiliateID, apiID)
+	c.Genre = api.NewGenreService(affiliateID, apiID)
+	c.Maker = api.NewMakerService(affiliateID, apiID)
+	c.Product = api.NewProductService(affiliateID, apiID)
+	c.Series = api.NewSeriesService(affiliateID, apiID)
 	return c
 }

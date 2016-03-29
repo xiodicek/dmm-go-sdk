@@ -7,16 +7,16 @@ import (
 )
 
 func TestNewActressService(t *testing.T) {
-	affiliate_id := Dummy_Affliate_Id
-	api_id := Dummy_Api_Id
+	affiliateID := DummyAffliateID
+	apiID := DummyAPIID
 
-	srv := NewActressService(affiliate_id, api_id)
-	if srv.AffiliateId != affiliate_id {
-		t.Fatalf("ActressService.AffiliateId is expected to equal the input value(affiliate_id)")
+	srv := NewActressService(affiliateID, apiID)
+	if srv.AffiliateID != affiliateID {
+		t.Fatalf("ActressService.AffiliateID is expected to equal the input value(affiliateID)")
 	}
 
-	if srv.ApiId != api_id {
-		t.Fatalf("ActressService.ApiId is expected to equal the input value(api_id)")
+	if srv.ApiID != apiID {
+		t.Fatalf("ActressService.ApiID is expected to equal the input value(apiID)")
 	}
 }
 
@@ -72,16 +72,16 @@ func TestSetKeywordInActressService(t *testing.T) {
 	}
 
 	keyword4 := " a b c d 0 "
-	keyword4_expected := "a b c d 0"
+	keyword4Expected := "a b c d 0"
 	srv.SetKeyword(keyword4)
-	if srv.Keyword != keyword4_expected {
+	if srv.Keyword != keyword4Expected {
 		t.Fatalf("ActressService.Keyword is expected to equal keyword4_expected")
 	}
 
 	keyword5 := "　あ ア　化Ａ "
-	keyword5_expected := "あ ア　化Ａ"
+	keyword5Expected := "あ ア　化Ａ"
 	srv.SetKeyword(keyword5)
-	if srv.Keyword != keyword5_expected {
+	if srv.Keyword != keyword5Expected {
 		t.Fatalf("ActressService.Keyword is expected to equal keyword5_expected")
 	}
 }
@@ -201,19 +201,19 @@ func TestValidateLengthInActressService(t *testing.T) {
 		t.Fatalf("ActressService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_ACTRESS_API_LENGTH
+	target = DefaultActressAPILength
 	srv.SetLength(target)
 	if srv.ValidateLength() == false {
 		t.Fatalf("ActressService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_ACTRESS_MAX_LENGTH
+	target = DefaultActressMaxLength
 	srv.SetLength(target)
 	if srv.ValidateLength() == false {
 		t.Fatalf("ActressService.ValidateLength is expected TRUE.")
 	}
 
-	target = DEFAULT_ACTRESS_MAX_LENGTH + 1
+	target = DefaultActressMaxLength + 1
 	srv.SetLength(target)
 	if srv.ValidateLength() == true {
 		t.Fatalf("ActressService.ValidateLength is expected FALSE.")
@@ -262,167 +262,167 @@ func TestValidateOffsetInActressService(t *testing.T) {
 	}
 }
 
-func TestBuildRequestUrlInActressService(t *testing.T) {
+func TestBuildRequestURLInActressService(t *testing.T) {
 	var srv *ActressService
 	var u string
 	var err error
 	var expected string
 
 	srv = dummyActressService()
-	u, err = srv.BuildRequestUrl()
-	expected = API_BASE_URL + "/ActressSearch?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id + "&hits=" + strconv.FormatInt(DEFAULT_ACTRESS_API_LENGTH, 10) + "&offset=" + strconv.FormatInt(DEFAULT_API_OFFSET, 10)
+	u, err = srv.BuildRequestURL()
+	expected = APIBaseURL + "/ActressSearch?affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID + "&hits=" + strconv.FormatInt(DefaultActressAPILength, 10) + "&offset=" + strconv.FormatInt(DefaultAPIOffset, 10)
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 
 	srv = dummyActressService()
 	srv.SetLength(0)
 	srv.SetOffset(0)
-	u, err = srv.BuildRequestUrl()
-	expected = API_BASE_URL + "/ActressSearch?affiliate_id=" + Dummy_Affliate_Id + "&api_id=" + Dummy_Api_Id
-	expected_base := expected
+	u, err = srv.BuildRequestURL()
+	expected = APIBaseURL + "/ActressSearch?affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID
+	expectedBase := expected
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 
 	srv.SetLength(-1)
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("ActressService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("ActressService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("ActressService.BuildRequestURL is expected to return error.")
 	}
 	srv.SetLength(0)
 
 	srv.SetOffset(-1)
-	u, err = srv.BuildRequestUrl()
+	u, err = srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("ActressService.BuildRequestUrl is expected empty if error occurs.")
+		t.Fatalf("ActressService.BuildRequestURL is expected empty if error occurs.")
 	}
 	if err == nil {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("ActressService.BuildRequestURL is expected to return error.")
 	}
 	srv.SetOffset(0)
 
 	srv.SetInitial("あ")
-	expected = expected_base + "&initial=" + url.QueryEscape("あ")
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&initial=" + url.QueryEscape("あ")
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetInitial("")
 
 	srv.SetSort("name")
-	expected = expected_base + "&sort=name"
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&sort=name"
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetSort("")
 
 	srv.SetKeyword("天使もえ")
-	expected = expected_base + "&keyword=" + url.QueryEscape("天使もえ")
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&keyword=" + url.QueryEscape("天使もえ")
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetKeyword("")
 
 	srv.SetBirthday("19940710")
-	expected = expected_base + "&birthday=19940710"
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&birthday=19940710"
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetBirthday("")
 
 	srv.SetBust("84")
-	expected = expected_base + "&bust=84"
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&bust=84"
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetBust("")
 
 	srv.SetWaist("57")
-	expected = expected_base + "&waist=57"
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&waist=57"
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetWaist("")
 
 	srv.SetHip("82")
-	expected = expected_base + "&hip=82"
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&hip=82"
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 	srv.SetHip("")
 
 	srv.SetHeight("155")
-	expected = expected_base + "&height=155"
-	u, err = srv.BuildRequestUrl()
+	expected = expectedBase + "&height=155"
+	u, err = srv.BuildRequestURL()
 	if u != expected {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
 	if err != nil {
-		t.Fatalf("ActressService.BuildRequestUrl is not expected to have error")
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
 	}
 }
 
-func TestBuildRequestUrlWithoutApiIdInActressService(t *testing.T) {
+func TestBuildRequestURLWithoutApiIDInActressService(t *testing.T) {
 	srv := dummyActressService()
-	srv.ApiId = ""
-	u, err := srv.BuildRequestUrl()
+	srv.ApiID = ""
+	u, err := srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("ActressService.BuildRequestUrl is expected empty if API ID is not set.")
+		t.Fatalf("ActressService.BuildRequestURL is expected empty if API ID is not set.")
 	}
 	if err == nil {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("ActressService.BuildRequestURL is expected to return error.")
 	}
 }
 
-func TestBuildRequestUrlWithWrongAffiliateIdInActressService(t *testing.T) {
+func TestBuildRequestURLWithWrongAffiliateIDInActressService(t *testing.T) {
 	srv := dummyActressService()
-	srv.AffiliateId = "fizzbizz-100"
-	u, err := srv.BuildRequestUrl()
+	srv.AffiliateID = "fizzbizz-100"
+	u, err := srv.BuildRequestURL()
 	if u != "" {
-		t.Fatalf("ActressService.BuildRequestUrl is expected empty if wrong Affiliate ID is set.")
+		t.Fatalf("ActressService.BuildRequestURL is expected empty if wrong Affiliate ID is set.")
 	}
 	if err == nil {
-		t.Fatalf("ActressService.BuildRequestUrl is expected to return error.")
+		t.Fatalf("ActressService.BuildRequestURL is expected to return error.")
 	}
 }
 
 func dummyActressService() *ActressService {
-	return NewActressService(Dummy_Affliate_Id, Dummy_Api_Id)
+	return NewActressService(DummyAffliateID, DummyAPIID)
 }

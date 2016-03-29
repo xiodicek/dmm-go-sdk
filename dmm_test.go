@@ -5,64 +5,64 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	affiliate_id := "foobar-999"
-	api_id := "TXpEZ5D4T2xB3J5cuSLf"
+	affiliateID := "foobar-999"
+	apiID := "TXpEZ5D4T2xB3J5cuSLf"
 
-	c := New(affiliate_id, api_id)
+	c := New(affiliateID, apiID)
 
-	if c.AffiliateId != affiliate_id {
-		t.Fatalf("Client.AffiliateId is expected to equal the affiliate_id parameter")
+	if c.AffiliateID != affiliateID {
+		t.Fatalf("Client.AffiliateID is expected to equal the affiliateID parameter")
 	}
-	if c.ApiId != api_id {
-		t.Fatalf("Client.ApiId is expected to equal the api_id parameter")
-	}
-
-	if c.Actress.AffiliateId != c.AffiliateId {
-		t.Fatalf("Client.AffiliateId is expected to equal Client.Actress.AffiliateId")
-	}
-	if c.Actress.ApiId != c.ApiId {
-		t.Fatalf("Client.ApiId is expected to equal Client.Actress.ApiId")
+	if c.ApiID != apiID {
+		t.Fatalf("Client.ApiID is expected to equal the apiID parameter")
 	}
 
-	if c.Author.AffiliateId != c.AffiliateId {
-		t.Fatalf("Client.AffiliateId is expected to equal Client.Author.AffiliateId")
+	if c.Actress.AffiliateID != c.AffiliateID {
+		t.Fatalf("Client.AffiliateID is expected to equal Client.Actress.AffiliateID")
 	}
-	if c.Author.ApiId != c.ApiId {
-		t.Fatalf("Client.ApiId is expected to equal Client.Author.ApiId")
-	}
-
-	if c.Floor.AffiliateId != c.AffiliateId {
-		t.Fatalf("Client.AffiliateId is expected to equal Client.Floor.AffiliateId")
-	}
-	if c.Floor.ApiId != c.ApiId {
-		t.Fatalf("Client.ApiId is expected to equal Client.Floor.ApiId")
+	if c.Actress.ApiID != c.ApiID {
+		t.Fatalf("Client.ApiID is expected to equal Client.Actress.ApiID")
 	}
 
-	if c.Genre.AffiliateId != c.AffiliateId {
-		t.Fatalf("Client.AffiliateId is expected to equal Client.Genre.AffiliateId")
+	if c.Author.AffiliateID != c.AffiliateID {
+		t.Fatalf("Client.AffiliateID is expected to equal Client.Author.AffiliateID")
 	}
-	if c.Genre.ApiId != c.ApiId {
-		t.Fatalf("Client.ApiId is expected to equal Client.Genre.ApiId")
-	}
-
-	if c.Maker.AffiliateId != c.AffiliateId {
-		t.Fatalf("Client.AffiliateId is expected to equal Client.Maker.AffiliateId")
-	}
-	if c.Maker.ApiId != c.ApiId {
-		t.Fatalf("Client.ApiId is expected to equal Client.Maker.ApiId")
+	if c.Author.ApiID != c.ApiID {
+		t.Fatalf("Client.ApiID is expected to equal Client.Author.ApiID")
 	}
 
-	if c.Product.AffiliateId != c.AffiliateId {
-		t.Fatalf("Client.AffiliateId is expected to equal Client.Product.AffiliateId")
+	if c.Floor.AffiliateID != c.AffiliateID {
+		t.Fatalf("Client.AffiliateID is expected to equal Client.Floor.AffiliateID")
 	}
-	if c.Product.ApiId != c.ApiId {
-		t.Fatalf("Client.ApiId is expected to equal Client.Product.ApiId")
+	if c.Floor.ApiID != c.ApiID {
+		t.Fatalf("Client.ApiID is expected to equal Client.Floor.ApiID")
 	}
 
-	if c.Series.AffiliateId != c.AffiliateId {
-		t.Fatalf("Client.AffiliateId is expected to equal Client.Series.AffiliateId")
+	if c.Genre.AffiliateID != c.AffiliateID {
+		t.Fatalf("Client.AffiliateID is expected to equal Client.Genre.AffiliateID")
 	}
-	if c.Series.ApiId != c.ApiId {
-		t.Fatalf("Client.ApiId is expected to equal Client.Series.ApiId")
+	if c.Genre.ApiID != c.ApiID {
+		t.Fatalf("Client.ApiID is expected to equal Client.Genre.ApiID")
+	}
+
+	if c.Maker.AffiliateID != c.AffiliateID {
+		t.Fatalf("Client.AffiliateID is expected to equal Client.Maker.AffiliateID")
+	}
+	if c.Maker.ApiID != c.ApiID {
+		t.Fatalf("Client.ApiID is expected to equal Client.Maker.ApiID")
+	}
+
+	if c.Product.AffiliateID != c.AffiliateID {
+		t.Fatalf("Client.AffiliateID is expected to equal Client.Product.AffiliateID")
+	}
+	if c.Product.ApiID != c.ApiID {
+		t.Fatalf("Client.ApiID is expected to equal Client.Product.ApiID")
+	}
+
+	if c.Series.AffiliateID != c.AffiliateID {
+		t.Fatalf("Client.AffiliateID is expected to equal Client.Series.AffiliateID")
+	}
+	if c.Series.ApiID != c.ApiID {
+		t.Fatalf("Client.ApiID is expected to equal Client.Series.ApiID")
 	}
 }
