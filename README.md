@@ -3,6 +3,7 @@
 [![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/LICENSE)
 [![Build Status](http://img.shields.io/travis/DMMcomLabo/dmm-go-sdk.svg?style=flat-square)](https://travis-ci.org/DMMcomLabo/dmm-go-sdk)
 [![Coverage Status](https://img.shields.io/coveralls/DMMcomLabo/dmm-go-sdk.svg?style=flat-square)](https://coveralls.io/github/DMMcomLabo/dmm-go-sdk?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/DMMcomLabo/dmm-go-sdk)](https://goreportcard.com/report/github.com/DMMcomLabo/dmm-go-sdk)
 
 DMM Web API version.3 クライアント
 
@@ -30,7 +31,7 @@ package (
 
 client := dmm.New("foobarbazbuzz", "dummy-990")
 api := client.Product
-api.SetSite(SITE_ALLAGES)
+api.SetSite(SiteGeneral)
 api.SetService("mono")
 api.SetFloor("dvd")
 api.SetSort("date")
