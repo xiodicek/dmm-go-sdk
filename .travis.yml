@@ -1,7 +1,8 @@
 language: go
 go:
-    - 1.4
-    - 1.5
+    - "1.4"
+    - "1.5"
+    - "1.6"
     - tip
 before_install:
     - go get github.com/axw/gocov/gocov
@@ -9,5 +10,10 @@ before_install:
     - if ! go get github.com/golang/tools/cmd/cover; then go get golang.org/x/tools/cmd/cover; fi
 before_script:
     - chmod +x travis_test.sh
+
+matrix:
+  allow_failures:
+    - go: tip
+
 script:
     - ./travis_test.sh
