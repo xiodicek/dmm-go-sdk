@@ -17,6 +17,12 @@ DMM Web API version.3 クライアント
 $ go get github.com/DMMcomLabo/dmm-go-sdk
 ```
 
+もしくは
+
+```
+$ go get gopkg.in/DMMcomLabo/dmm-go-sdk.v1
+```
+
 ## 使い方
 
 使い方や使用例はこちらを参照してください。 [Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk).
