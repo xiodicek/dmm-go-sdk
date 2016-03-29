@@ -1,6 +1,7 @@
 package api
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -10,20 +11,29 @@ import (
 )
 
 const (
-	API_BASE_URL       = "https://api.dmm.com/affiliate/v3"
-	API_VERSION        = "3"
-	SITE_ALLAGES       = "DMM.com"
-	SITE_ADULT         = "DMM.R18"
-	DEFAULT_API_OFFSET = 1
-	DEFAULT_API_LENGTH = 100
-	DEFAULT_MAX_LENGTH = 500
+	APIBaseURL       = "https://api.dmm.com/affiliate/v3"
+	APIVersion       = "3"
+	SiteGeneral      = "DMM.com"
+	SiteAdult        = "DMM.R18"
+	DefaultAPIOffset = 1
+	DefaultAPILength = 100
+	DefaultMaxLength = 500
 )
 
-// RequestJson requests a retirived url and returns the response is parsed JSON-encoded data
+// RequestJSON requests a retirived url and returns the response is parsed JSON-encoded data
 //
-// RequestJsonは指定されたURLにリクエストしJSONで返ってきたレスポンスをパースしたデータを返します。
-func RequestJson(url string) (interface{}, error) {
-	resp, err := http.Get(url)
+// RequestJSONは指定されたURLにリクエストしJSONで返ってきたレスポンスをパースしたデータを返します。
+func RequestJSON(url string) (interface{}, error) {
+	// Ignore SSL Certificate Errors
+	hc := &http.Client{
+            Transport: &http.Transport{
+                TLSClientConfig: &tls.Config{
+                    InsecureSkipVerify: true,
+                },
+            },
+        }
+
+	resp, err := hc.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("Error at API request:%#v", err)
 	}
@@ -44,17 +54,17 @@ func TrimString(str string) string {
 	return strings.TrimSpace(str)
 }
 
-// ValidateAffiliateId validates affiliate ID.
+// ValidateAffiliateID validates affiliate ID.
 // (affiliate number range: 990 ~ 999)
 //  e.g. dummy-999
 //
-// ValidateAffiliateIdはアフィリエイトID(例: dummy-999)のバリデーションを行います。
+// ValidateAffiliateIDはアフィリエイトID(例: dummy-999)のバリデーションを行います。
 //（アフィリエイトの数値の範囲は 990〜999です）
-func ValidateAffiliateId(affiliate_id string) bool {
-	if affiliate_id == "" {
+func ValidateAffiliateID(affiliateID string) bool {
+	if affiliateID == "" {
 		return false
 	}
-	return regexp.MustCompile(`^.+-99[0-9]$`).Match([]byte(affiliate_id))
+	return regexp.MustCompile(`^.+-99[0-9]$`).Match([]byte(affiliateID))
 }
 
 // ValidateSite validates site parameter.
@@ -64,7 +74,7 @@ func ValidateSite(site string) bool {
 	if site == "" {
 		return false
 	}
-	if site != SITE_ALLAGES && site != SITE_ADULT {
+	if site != SiteGeneral && site != SiteAdult {
 		return false
 	}
 	return true
@@ -77,9 +87,9 @@ func ValidateRange(target, min, max int64) bool {
 	return target >= min && target <= max
 }
 
-// GetApiVersion returns API version.
+// GetAPIVersion returns API version.
 //
-// GetApiVersionはAPIのバージョンを返します。
-func GetApiVersion() string {
-	return API_VERSION
+// GetAPIVersionはAPIのバージョンを返します。
+func GetAPIVersion() string {
+	return APIVersion
 }
