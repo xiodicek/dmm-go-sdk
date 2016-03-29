@@ -26,12 +26,12 @@ const (
 func RequestJSON(url string) (interface{}, error) {
 	// Ignore SSL Certificate Errors
 	hc := &http.Client{
-            Transport: &http.Transport{
-                TLSClientConfig: &tls.Config{
-                    InsecureSkipVerify: true,
-                },
-            },
-        }
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+	}
 
 	resp, err := hc.Get(url)
 	if err != nil {
