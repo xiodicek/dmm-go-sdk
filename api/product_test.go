@@ -125,6 +125,26 @@ func TestSetFloorInProductService(t *testing.T) {
 	}
 }
 
+func TestSetGteDateInProductService(t *testing.T) {
+	srv := dummyProductService()
+
+	gte_date := "2016-04-01T00:00:00"
+	srv.SetGteDate(gte_date)
+	if srv.GteDate != gte_date {
+		t.Fatalf("ProductService.GteDate is expected to equal the input value(gte_date)")
+	}
+}
+
+func TestSetLteDateInProductService(t *testing.T) {
+	srv := dummyProductService()
+
+	lte_date := "2016-04-30T23:59:59"
+	srv.SetGteDate(lte_date)
+	if srv.GteDate != lte_date {
+		t.Fatalf("ProductService.LteDate is expected to equal the input value(lte_date)")
+	}
+}
+
 func TestValidateLengthInProductService(t *testing.T) {
 	srv := dummyProductService()
 

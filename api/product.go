@@ -25,6 +25,8 @@ type ProductService struct {
 	Keyword     string `mapstructure:"keyword"`
 	Article     string `mapstructure:"article"`
 	ArticleID   string `mapstructure:"article_id"`
+	GteDate     string `mapstructure:"gte_date"`
+	LteDate     string `mapstructure:"lte_date"`
 	Stock       string `mapstructure:"mono_stock"`
 }
 
@@ -272,6 +274,22 @@ func (srv *ProductService) SetArticleID(stock string) *ProductService {
 	return srv
 }
 
+// SetGteDate set the specified argument to ProductService.GteDate
+//
+// SetGteDateはGteDateパラメータを設定します。
+func (srv *ProductService) SetGteDate(stock string) *ProductService {
+	srv.GteDate = TrimString(stock)
+	return srv
+}
+
+// SetLteDate set the specified argument to ProductService.LteDate
+//
+// SetLteDateはLteDateパラメータを設定します。
+func (srv *ProductService) SetLteDate(stock string) *ProductService {
+	srv.LteDate = TrimString(stock)
+	return srv
+}
+
 // SetStock set the specified argument to ProductService.Stock
 //
 // SetStockはStockパラメータを設定します。
@@ -346,6 +364,12 @@ func (srv *ProductService) BuildRequestURL() (string, error) {
 	}
 	if srv.Article != "" {
 		queries.Set("article", srv.Article)
+	}
+	if srv.GteDate != "" {
+		queries.Set("gte_date", srv.GteDate)
+	}
+	if srv.LteDate != "" {
+		queries.Set("lte_date", srv.LteDate)
 	}
 	if srv.ArticleID != "" {
 		queries.Set("article_id", srv.ArticleID)
