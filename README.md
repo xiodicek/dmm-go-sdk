@@ -35,7 +35,7 @@ package (
     "github.com/DMMcomLabo/dmm-go-sdk"
 )
 
-client := dmm.New("foobarbazbuzz", "dummy-990")
+client := dmm.New("dummy-990", "foobarbazbuzz")
 api := client.Product
 api.SetSite(SiteGeneral)
 api.SetService("mono")
@@ -58,7 +58,7 @@ package (
     "github.com/DMMcomLabo/dmm-go-sdk/api"
 )
 
-rst, err := NewProductService("foobarbazbuzz", "dummy-999").SetSite(SITE_ADULT).SetLength(1).Execute()
+rst, err := NewProductService( "dummy-999", "foobarbazbuzz").SetSite(SITE_ADULT).SetLength(1).Execute()
 if err != nil {
     fmt.Println(err)
 } else {
