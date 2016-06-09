@@ -1,8 +1,8 @@
 # DMM SDK for Go (v3)
-[![GoDoc](https://img.shields.io/badge/go-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk)
-[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/LICENSE)
-[![Build Status](http://img.shields.io/travis/DMMcomLabo/dmm-go-sdk.svg?style=flat-square)](https://travis-ci.org/DMMcomLabo/dmm-go-sdk)
-[![Coverage Status](https://img.shields.io/coveralls/DMMcomLabo/dmm-go-sdk.svg?style=flat-square)](https://coveralls.io/github/DMMcomLabo/dmm-go-sdk?branch=master)
+[![GoDoc](https://img.shields.io/badge/go-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/dmmlabo/dmm-go-sdk)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/dmmlabo/dmm-go-sdk/blob/master/LICENSE)
+[![Build Status](http://img.shields.io/travis/dmmlabo/dmm-go-sdk.svg?style=flat-square)](https://travis-ci.org/dmmlabo/dmm-go-sdk)
+[![Coverage Status](https://img.shields.io/coveralls/dmmlabo/dmm-go-sdk.svg?style=flat-square)](https://coveralls.io/github/dmmlabo/dmm-go-sdk?branch=master)
 
 DMM Web API version.3 Client for Go
 
@@ -13,19 +13,19 @@ see: [DMM Affiliate](https://affiliate.dmm.com/)
 Standard `go get`:
 
 ```
-$ go get github.com/DMMcomLabo/dmm-go-sdk
+$ go get github.com/dmmlabo/dmm-go-sdk
 ```
 
 ## Usage
 
-For usage and examples see the [Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk).
+For usage and examples see the [Godoc](https://godoc.org/github.com/dmmlabo/dmm-go-sdk).
 
 ## Example (e.g Product API)
 
 ```
 package (
     "fmt"
-    "github.com/DMMcomLabo/dmm-go-sdk"
+    "github.com/dmmlabo/dmm-go-sdk"
 )
 
 client := dmm.New("dummy-990", "foobarbazbuzz")
@@ -48,7 +48,7 @@ OR
 ```
 package (
     "fmt"
-    "github.com/DMMcomLabo/dmm-go-sdk/api"
+    "github.com/dmmlabo/dmm-go-sdk/api"
 )
 
 rst, err := NewProductService("dummy-999", "foobarbazbuzz" ).SetSite(SITE_ADULT).SetLength(1).Execute()
@@ -61,4 +61,4 @@ if err != nil {
 
 # Details
 
-see [Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk/api) (English and Japanese) or [our documentation](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/docs/README.md) (Japanese ONLY)
+see [Godoc](https://godoc.org/github.com/dmmlabo/dmm-go-sdk/api) (English and Japanese) or [our documentation](https://github.com/dmmlabo/dmm-go-sdk/blob/master/docs/README.md) (Japanese ONLY)

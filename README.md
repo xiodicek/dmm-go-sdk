@@ -1,9 +1,9 @@
 # DMM SDK for Go (v3)
-[![GoDoc](https://img.shields.io/badge/go-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk)
-[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/LICENSE)
-[![Build Status](http://img.shields.io/travis/DMMcomLabo/dmm-go-sdk.svg?style=flat-square)](https://travis-ci.org/DMMcomLabo/dmm-go-sdk)
-[![Coverage Status](https://img.shields.io/coveralls/DMMcomLabo/dmm-go-sdk.svg?style=flat-square)](https://coveralls.io/github/DMMcomLabo/dmm-go-sdk?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/DMMcomLabo/dmm-go-sdk)](https://goreportcard.com/report/github.com/DMMcomLabo/dmm-go-sdk)
+[![GoDoc](https://img.shields.io/badge/go-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/dmmlabo/dmm-go-sdk)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/dmmlabo/dmm-go-sdk/blob/master/LICENSE)
+[![Build Status](http://img.shields.io/travis/dmmlabo/dmm-go-sdk.svg?style=flat-square)](https://travis-ci.org/dmmlabo/dmm-go-sdk)
+[![Coverage Status](https://img.shields.io/coveralls/dmmlabo/dmm-go-sdk.svg?style=flat-square)](https://coveralls.io/github/dmmlabo/dmm-go-sdk?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/dmmlabo/dmm-go-sdk)](https://goreportcard.com/report/github.com/dmmlabo/dmm-go-sdk)
 
 DMM Web API version.3 クライアント
 
@@ -14,25 +14,25 @@ DMM Web API version.3 クライアント
 `go get` の場合:
 
 ```
-$ go get github.com/DMMcomLabo/dmm-go-sdk
+$ go get github.com/dmmlabo/dmm-go-sdk
 ```
 
 もしくは
 
 ```
-$ go get gopkg.in/DMMcomLabo/dmm-go-sdk.v1
+$ go get gopkg.in/dmmlabo/dmm-go-sdk.v1
 ```
 
 ## 使い方
 
-使い方や使用例はこちらを参照してください。 [Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk).
+使い方や使用例はこちらを参照してください。 [Godoc](https://godoc.org/github.com/dmmlabo/dmm-go-sdk).
 
 ## 使用例 (商品検索APIの場合)
 
 ```
 package (
     "fmt"
-    "github.com/DMMcomLabo/dmm-go-sdk"
+    "github.com/dmmlabo/dmm-go-sdk"
 )
 
 client := dmm.New("dummy-990", "foobarbazbuzz")
@@ -55,7 +55,7 @@ if err != nil {
 ```
 package (
     "fmt"
-    "github.com/DMMcomLabo/dmm-go-sdk/api"
+    "github.com/dmmlabo/dmm-go-sdk/api"
 )
 
 rst, err := NewProductService( "dummy-999", "foobarbazbuzz").SetSite(SITE_ADULT).SetLength(1).Execute()
@@ -68,4 +68,4 @@ if err != nil {
 
 # 詳細
 
-[Godoc](https://godoc.org/github.com/DMMcomLabo/dmm-go-sdk/api) もしくは [our documentation](https://github.com/DMMcomLabo/dmm-go-sdk/blob/master/docs/README.md) を参照してください
+[Godoc](https://godoc.org/github.com/dmmlabo/dmm-go-sdk/api) もしくは [our documentation](https://github.com/dmmlabo/dmm-go-sdk/blob/master/docs/README.md) を参照してください
