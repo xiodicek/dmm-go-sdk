@@ -46,6 +46,7 @@ type Actress struct {
 	Name        string             `mapstructure:"name"`
 	Ruby        string             `mapstructure:"ruby"`
 	Bust        string             `mapstructure:"bust"`
+	Cup         string             `mapstructure:"cup"`
 	Waist       string             `mapstructure:"waist"`
 	Hip         string             `mapstructure:"hip"`
 	Height      string             `mapstructure:"height"`
