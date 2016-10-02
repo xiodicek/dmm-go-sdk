@@ -2,9 +2,10 @@ package api
 
 import (
 	"fmt"
-	"github.com/mitchellh/mapstructure"
 	"net/url"
 	"strconv"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 const (
@@ -377,5 +378,12 @@ func (srv *ProductService) BuildRequestURL() (string, error) {
 	if srv.Stock != "" {
 		queries.Set("mono_stock", srv.Stock)
 	}
-	return APIBaseURL + "/ItemList?" + queries.Encode(), nil
+
+	u, err := buildAPIEndpoint("ItemList")
+	if err != nil {
+		return "", err
+	}
+	u.RawQuery = queries.Encode()
+
+	return u.String(), nil
 }

@@ -2,9 +2,10 @@ package api
 
 import (
 	"fmt"
-	"github.com/mitchellh/mapstructure"
 	"net/url"
 	"strconv"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 type AuthorService struct {
@@ -182,5 +183,12 @@ func (srv *AuthorService) BuildRequestURL() (string, error) {
 	if srv.Initial != "" {
 		queries.Set("initial", srv.Initial)
 	}
-	return APIBaseURL + "/AuthorSearch?" + queries.Encode(), nil
+
+	u, err := buildAPIEndpoint("AuthorSearch")
+	if err != nil {
+		return "", err
+	}
+	u.RawQuery = queries.Encode()
+
+	return u.String(), nil
 }

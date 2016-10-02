@@ -2,9 +2,10 @@ package api
 
 import (
 	"fmt"
-	"github.com/mitchellh/mapstructure"
 	"net/url"
 	"strconv"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 type SeriesService struct {
@@ -182,5 +183,12 @@ func (srv *SeriesService) BuildRequestURL() (string, error) {
 	if srv.Initial != "" {
 		queries.Set("initial", srv.Initial)
 	}
-	return APIBaseURL + "/SeriesSearch?" + queries.Encode(), nil
+
+	u, err := buildAPIEndpoint("SeriesSearch")
+	if err != nil {
+		return "", err
+	}
+	u.RawQuery = queries.Encode()
+
+	return u.String(), nil
 }
