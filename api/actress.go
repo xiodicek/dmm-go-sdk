@@ -2,9 +2,10 @@ package api
 
 import (
 	"fmt"
-	"github.com/mitchellh/mapstructure"
 	"net/url"
 	"strconv"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 const (
@@ -54,7 +55,13 @@ type Actress struct {
 	BloodType   string             `mapstructure:"blood_type"`
 	Hobby       string             `mapstructure:"hobby"`
 	Prefectures string             `mapstructure:"prefectures"`
+	ImageURL    ActressImageList   `mapstructure:"imageURL"`
 	ListURL     ActressProductList `mapstructure:"listURL"`
+}
+
+type ActressImageList struct {
+	Small string `mapstructure:"small"`
+	Large string `mapstructure:"large"`
 }
 
 type ActressProductList struct {
