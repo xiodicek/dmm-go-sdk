@@ -2,8 +2,9 @@ package api
 
 import (
 	"fmt"
-	"github.com/mitchellh/mapstructure"
 	"net/url"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 type FloorService struct {
@@ -92,5 +93,11 @@ func (srv *FloorService) BuildRequestURL() (string, error) {
 	queries.Set("api_id", srv.ApiID)
 	queries.Set("affiliate_id", srv.AffiliateID)
 
-	return APIBaseURL + "/FloorList?" + queries.Encode(), nil
+	u, err := buildAPIEndpoint("FloorList")
+	if err != nil {
+		return "", err
+	}
+	u.RawQuery = queries.Encode()
+
+	return u.String(), nil
 }

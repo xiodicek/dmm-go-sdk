@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
+	"path"
 	"regexp"
 	"strings"
 )
@@ -92,4 +94,16 @@ func ValidateRange(target, min, max int64) bool {
 // GetAPIVersionはAPIのバージョンを返します。
 func GetAPIVersion() string {
 	return APIVersion
+}
+
+// buildAPIEndpoint returns API Endpoint path.
+//
+// buildAPIEndpointはAPIエンドポイントのフルパスを組み立てて返します。
+func buildAPIEndpoint(p string) (*url.URL, error) {
+	u, err := url.Parse(APIBaseURL)
+	if err != nil {
+		return nil, fmt.Errorf("Parse error: %#v", err)
+	}
+	u.Path = path.Join(u.Path, p)
+	return u, err
 }

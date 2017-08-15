@@ -2,9 +2,10 @@ package api
 
 import (
 	"fmt"
-	"github.com/mitchellh/mapstructure"
 	"net/url"
 	"strconv"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 type GenreService struct {
@@ -182,5 +183,12 @@ func (srv *GenreService) BuildRequestURL() (string, error) {
 	if srv.Initial != "" {
 		queries.Set("initial", srv.Initial)
 	}
-	return APIBaseURL + "/GenreSearch?" + queries.Encode(), nil
+
+	u, err := buildAPIEndpoint("GenreSearch")
+	if err != nil {
+		return "", err
+	}
+	u.RawQuery = queries.Encode()
+
+	return u.String(), nil
 }

@@ -2,9 +2,10 @@ package api
 
 import (
 	"fmt"
-	"github.com/mitchellh/mapstructure"
 	"net/url"
 	"strconv"
+
+	"github.com/mitchellh/mapstructure"
 )
 
 const (
@@ -278,5 +279,11 @@ func (srv *ActressService) BuildRequestURL() (string, error) {
 		queries.Set("height", srv.Height)
 	}
 
-	return APIBaseURL + "/ActressSearch?" + queries.Encode(), nil
+	u, err := buildAPIEndpoint("ActressSearch")
+	if err != nil {
+		return "", err
+	}
+	u.RawQuery = queries.Encode()
+
+	return u.String(), nil
 }
