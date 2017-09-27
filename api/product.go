@@ -125,6 +125,7 @@ type ItemInformation struct {
 	Fighters  []ItemComponent `mapstructure:"fighter"`
 	Colors    []ItemComponent `mapstructure:"color"`
 	Sizes     []ItemComponent `mapstructure:"size"`
+	Actresses []ItemComponent `mapstructure:"actress"`
 }
 
 type ItemComponent struct {
