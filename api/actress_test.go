@@ -51,6 +51,16 @@ func TestSetOffsetInActressService(t *testing.T) {
 	}
 }
 
+func TestSetActressIDInActressService(t *testing.T) {
+	srv := dummyActressService()
+	var actressID = "15365"
+	srv.SetActressID(actressID)
+
+	if srv.ActressID != actressID {
+		t.Fatalf("ActressService.ActressID is expected to equal to the input value(actressID)")
+	}
+}
+
 func TestSetKeywordInActressService(t *testing.T) {
 	srv := dummyActressService()
 
@@ -323,6 +333,14 @@ func TestBuildRequestURLInActressService(t *testing.T) {
 	}
 	srv.SetInitial("")
 
+	srv.SetActressID("15365")
+	expected = APIBaseURL + "/ActressSearch?actress_id=15365&affiliate_id=" + DummyAffliateID + "&api_id=" + DummyAPIID
+	u, err = srv.BuildRequestURL()
+	if u != expected {
+		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
+	}
+	srv.SetActressID("")
+
 	srv.SetSort("name")
 	expected = expectedBase + "&sort=name"
 	u, err = srv.BuildRequestURL()
@@ -542,6 +560,7 @@ func TestExcuteWeakRequestActressAPIToServer(t *testing.T) {
 
 	srv := NewActressService(TestAffiliateID, TestAPIID)
 	srv.SetInitial("あ")
+	srv.SetActressID("15365")
 	srv.SetKeyword("あさみ")
 	srv.SetBust("90")
 	srv.SetGteBust("90")
