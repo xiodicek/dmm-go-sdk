@@ -339,6 +339,9 @@ func TestBuildRequestURLInActressService(t *testing.T) {
 	if u != expected {
 		t.Fatalf("ActressService.BuildRequestURL is expected to equal the expected value.\nexpected:%s\nactual:  %s", expected, u)
 	}
+	if err != nil {
+		t.Fatalf("ActressService.BuildRequestURL is not expected to have error")
+	}
 	srv.SetActressID("")
 
 	srv.SetSort("name")
